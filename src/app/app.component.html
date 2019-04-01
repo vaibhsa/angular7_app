@@ -1,20 +1,180 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container-fluid">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+             <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="#">Admin Panel</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav pull-right">
+                    <li [routerLinkActive]="['active']">
+                        <a  routerLink="/login">Login</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-user"></i> Vincent Gabriel <i class="caret"></i>
 
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a tabindex="-1" href="#">Profile</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="#">Logout</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav">
+                    <li [routerLinkActive]="['active']">
+                        <a routerLink="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings <b class="caret"></b>
+
+                        </a>
+                        <ul class="dropdown-menu" id="menu1">
+                            <li>
+                                <a href="#">Tools <i class="icon-arrow-right"></i>
+
+                                </a>
+                                <ul class="dropdown-menu sub-menu">
+                                    <li>
+                                        <a href="#">Reports</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Logs</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Errors</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">SEO Settings</a>
+                            </li>
+                            <li>
+                                <a href="#">Other Link</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a href="#">Other Link</a>
+                            </li>
+                            <li>
+                                <a href="#">Other Link</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Content <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a tabindex="-1" href="#">Blog</a>
+                            </li>
+                            <li>
+                                <a tabindex="-1" href="#">News</a>
+                            </li>
+                            <li>
+                                <a tabindex="-1" href="#">Custom Pages</a>
+                            </li>
+                            <li>
+                                <a tabindex="-1" href="#">Calendar</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li>
+                                <a tabindex="-1" href="#">FAQ</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>
+
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a tabindex="-1" href="#">User List</a>
+                            </li>
+                            <li>
+                                <a tabindex="-1" href="#">Search</a>
+                            </li>
+                            <li>
+                                <a tabindex="-1" href="#">Permissions</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span3" id="sidebar">
+            <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
+
+                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
+                    <a routerLink="/"><i class="icon-chevron-right"></i>Home</a>
+                </li>
+                <li [routerLinkActive]="['active']">
+                    <a routerLink="/login"><i class="icon-chevron-right"></i> login</a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="icon-chevron-right"></i> 
+                            Statistics (Charts)
+                    </a>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-chevron-right"></i> Forms</a>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-chevron-right"></i> Tables</a>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-chevron-right"></i> Buttons & Icons</a>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-chevron-right"></i> WYSIWYG Editors</a>
+                </li>
+                <li>
+                    <a href="#"><i class="icon-chevron-right"></i> UI & Interface</a>
+                </li>
+                <li>
+                    <a href="#"><span class="badge badge-success pull-right">731</span> Orders</a>
+                </li>
+                <li>
+                    <a href="#"><span class="badge badge-success pull-right">812</span> Invoices</a>
+                </li>
+                <li>
+                    <a href="#"><span class="badge badge-info pull-right">27</span> Clients</a>
+                </li>
+                <li>
+                    <a href="#"><span class="badge badge-info pull-right">1,234</span> Users</a>
+                </li>
+                <li>
+                    <a href="#"><span class="badge badge-info pull-right">2,221</span> Messages</a>
+                </li>
+                <li>
+                    <a href="#"><span class="badge badge-info pull-right">11</span> Reports</a>
+                </li>
+                <li>
+                    <a href="#"><span class="badge badge-important pull-right">83</span> Errors</a>
+                </li>
+                <li>
+                    <a href="#"><span class="badge badge-warning pull-right">4,231</span> Logs</a>
+                </li>
+            </ul>
+        </div>
+        
+        <!--/span-->
+        <div class="span9" id="content">
+            <div class="row-fluid">
+                <router-outlet></router-outlet>    
+            </div>
+        </div>
+    <hr>
+</div>
