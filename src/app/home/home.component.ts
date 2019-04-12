@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+
   products:any;
     
 
@@ -27,4 +28,3 @@ export class HomeComponent implements OnInit {
   }
 
 }
-

@@ -6,8 +6,7 @@
              <span class="icon-bar"></span>
             </a>
             <a class="brand" href="#">Admin Panel</a>
-            <div class="nav-collapse collapse">
-                
+            <div class="nav-collapse collapse">                
                 <ul *ngIf="!(auth.loggedIn())" class="nav pull-right">
                     <li [routerLinkActive]="['active']">
                       <a routerLink="/login">
@@ -42,7 +41,6 @@
                     </ul>
                   </li>
                 </ul> <!-- *ngIf="auth.loggedIn()" nav pull-right -->
-
                 <ul class="nav">
                     <li [routerLinkActive]="['active']">
                         <a routerLink="/dashboard">Dashboard</a>
