@@ -1,0 +1,52 @@
+<div *ngIf="productCart.length > 0; then thenTemplateName else elseTemplateName">
+    Here is never showing
+</div>
+
+<ng-template #thenTemplateName>
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+            <ul class="list-group" *ngFor="let product of productCart">             
+                <li class="list-group-item">
+                    <div class="shopping-style" style="float:left; width:80%;">
+                        <div style="float:left; width:80%;">
+                            <span class="badge">{{product.qty}}</span>
+                            <span style="font-weight: bold">{{product.title}}</span>
+                        </div>
+                        <div style="float:left; width:20%;">
+                            <span class="label label-success">${{product.price}}</span>
+                        </div>
+                    </div>    
+                    <div ngbDropdown class="btn-group" style="float:right; width:20%; ">
+                        <button type="button" class="btn btn-primary btn-xs dropdown-toggle" ngbDropdownToggle data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            Action <span class="caret"></span>
+                        </button>
+                        <ul ngbDropdownMenu class="dropdown-menu">
+                            <li><a (click)="reduceByOne(product)">Reduce by 1</a></li>
+                            <li><a (click)="removeAll(product)">Remove All</a></li>
+                        </ul>
+                    </div>                        
+                </li>            
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+            <strong>Total: ${{totalPrice}}</strong>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+            <button type="button" class="btn btn-success">Checkout</button>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #elseTemplateName>
+    <div class="row" style="margin-top: 30px;">
+        <div class="col-sm-6 col-md-4 col-md-offset-4 col-sm-offset-3">
+            <h2>No Items in Cart yet!</h2>
+        </div>
+    </div>
+</ng-template>

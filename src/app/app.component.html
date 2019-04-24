@@ -1,45 +1,65 @@
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
             </a>
             <a class="brand" href="#">Admin Panel</a>
             <div class="nav-collapse collapse">                
                 <ul *ngIf="!(auth.loggedIn())" class="nav pull-right">
+                    <li *ngIf="(cartService.cartQTY())">
+                        <a (click)="cartService.clearCart()">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> Reset Cart
+                            <!-- <span class="badge">{{cartService.cartQTY()}}</span> -->
+                            
+                        </a>
+                    </li>
+                    <li [routerLinkActive]="['active']">
+                        <a routerLink="/shoppingCart">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart
+                            <span class="badge">{{cartService.cartQTY()}}</span>
+                            <!-- <span class="badge">{{session.cart.totalQty}}</span> -->
+                        </a>
+                    </li>
                     <li [routerLinkActive]="['active']">
                       <a routerLink="/login">
                         Login
                       </a>
                     </li>
-
                     <li [routerLinkActive]="['active']">
                       <a routerLink="/register">
                         Registration
                       </a>
                     </li>
-                </ul> <!-- nav pull-right *ngIf="!(auth.loggedIn())" -->
-               
+                </ul> <!-- nav pull-right *ngIf="!(auth.loggedIn())" -->               
                 <ul *ngIf="auth.loggedIn()" class="nav pull-right">
-                  <li ngbDropdown class="dropdown">
-                    <a ngbDropdownToggle class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
-                      Profile 
-                      <span class="caret"></span>
-                    </a>
-                    <ul ngbDropdownMenu class="dropdown-menu">
-                      <li>
-                        <a routerLink="/profile">
-                          Profile
+                    <li [routerLinkActive]="['active']">
+                        <a routerLink="/shoppingCart">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart
+                            <span class="badge">1</span>
+                            <!-- <span class="badge">{{session.cart.totalQty}}</span> -->
                         </a>
-                      </li>
-                      <li>
-                        <a (click)="auth.logout()">
-                          Logout
+                    </li>  
+                    <li ngbDropdown class="dropdown">
+                        <a ngbDropdownToggle class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
+                          Profile 
+                          <span class="caret"></span>
                         </a>
-                      </li>
-                    </ul>
-                  </li>
+                        <ul ngbDropdownMenu class="dropdown-menu">
+                          <li>
+                            <a routerLink="/profile">
+                              Profile
+                            </a>
+                          </li>
+                          <li>
+                            <a (click)="auth.logout()">
+                              Logout
+                            </a>
+                          </li>
+                        </ul>
+                    </li>
                 </ul> <!-- *ngIf="auth.loggedIn()" nav pull-right -->
                 <ul class="nav">
                     <li [routerLinkActive]="['active']">
@@ -181,13 +201,23 @@
                     <a href="#"><span class="badge badge-warning pull-right">4,231</span> Logs</a>
                 </li>
             </ul>
-        </div>
-        
+        </div>    
         <!--/span-->
         <div class="span9" id="content">
             <div class="row-fluid">
+                <flash-messages></flash-messages>
+                <ngx-spinner
+                    bdOpacity = 0.3
+                    bdColor = "#33a1ff"
+                    size = "medium"
+                    color = "#fff"
+                    type = "ball-clip-rotate-multiple"
+                    [fullScreen] = "false">
+                    <p style="color: white" > Authenticating..... </p>
+                </ngx-spinner>
                 <router-outlet></router-outlet>    
             </div>
         </div>
-    <hr>
+        <hr>
+    </div>
 </div>

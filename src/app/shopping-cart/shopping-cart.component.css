@@ -1,0 +1,12 @@
+.list-group{
+	list-style: none;
+}
+.list-group-item{
+	width:80%;
+	height: 35px;
+
+}
+.shopping-style span{
+
+	margin-right: 30px
+}

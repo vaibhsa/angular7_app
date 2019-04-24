@@ -9,6 +9,12 @@ import {
 // import custom validator to validate that password and confirm password fields match
 import { MustMatch } from '../_helper/must-match.validator';
 
+import { AuthService } from '../services/auth.services';
+
+import { Router, ActivatedRoute } from '@angular/router';
+
+import { FlashMessagesService } from 'angular2-flash-messages';
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -22,7 +28,13 @@ export class RegistrationComponent implements OnInit {
   	password: FormControl;	
   	cPassword: FormControl;
 
-	constructor(private builder: FormBuilder) { 
+	constructor(
+		private builder: FormBuilder, 
+		private authenticationService: AuthService,
+		private router: Router,
+		private flash: FlashMessagesService
+	) {
+
 		this.createForm();
 	}
 
@@ -30,6 +42,24 @@ export class RegistrationComponent implements OnInit {
 
 	}
 
+	register() {
+      this.authenticationService.create(this.registerForm)
+      .subscribe(
+		data => {
+		  if(data.message == "success"){
+		    console.log(data.message);
+		    localStorage.setItem('email',data.email);
+		    localStorage.setItem('token',data.token);
+		    this.router.navigate(['/']);
+		  }else{
+		    this.flash.show(data.email+' Email already exist', { timeout: 3000,cssClass: 'alert-success' });
+		    this.router.navigate(['/register']); 
+		  }
+		},
+		error => {
+			console.log(error);
+		});
+  	}
 
 	createForm(){
 	  	

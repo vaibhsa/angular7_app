@@ -12,9 +12,14 @@ import { HomeComponent } from './home/home.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegistrationComponent } from './registration/registration.component';
 import { AuthService } from './services/auth.services';
-import { FlashMessagesModule } from 'angular2-flash-messages';
+import { CartService } from './services/cart.services';
 
+import { FlashMessagesModule } from 'angular2-flash-messages';
 import { HttpModule } from '@angular/http';
+
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+
 
 @NgModule({
 
@@ -23,7 +28,8 @@ import { HttpModule } from '@angular/http';
     LoginComponent,
     DashboardComponent,
     HomeComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
@@ -32,10 +38,12 @@ import { HttpModule } from '@angular/http';
     FormsModule,
     HttpModule,
     FlashMessagesModule.forRoot(),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [
-    AuthService
+    AuthService,
+    CartService
   ],
   bootstrap: [AppComponent]
 })

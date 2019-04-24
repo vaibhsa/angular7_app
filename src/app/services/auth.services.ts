@@ -24,19 +24,16 @@ declare var Auth0Lock;
 
 export class AuthService {
 	
-  constructor(private http:Http, private ngZone: NgZone, private router: Router, 
-              private flash:FlashMessagesService) {}
+  constructor(
+    private http:Http, 
+    private ngZone: NgZone, 
+    private router: Router, 
+    private flash:FlashMessagesService) {}
 
   flag : boolean = false;
 
   login(key: FormGroup) {
     
-    // let body = JSON.stringify({ 
-    //   email: email, 
-    //   password: password
-    // });
-
-
     var headers = new Headers();
     headers.append('content-Type','application/json');
     console.log("From Login() function.............");
@@ -70,6 +67,7 @@ export class AuthService {
               data => {
                 console.log(data);
                 if(data.message =='success'){
+
                   localStorage.removeItem('email');
                   localStorage.removeItem('token');
                   this.flag = false;
@@ -77,6 +75,7 @@ export class AuthService {
                   this.flash.show('LoggedOut successfully', { timeout: 3000,cssClass: 'alert-success' });
                   this.router.navigate(['/']);             
                 }else{
+                  
                   this.flash.show('Some problem with logout', { timeout: 3000,cssClass: 'alert-success' });
                 }
             });
@@ -89,6 +88,19 @@ export class AuthService {
     }
 
     return false;
+  }
+
+  create(key: FormGroup) {
+
+    // console.log(key.value);
+    var headers = new Headers();
+    headers.append('content-Type','application/json');
+    // return this.http.post('http://localhost:3000/api/registration', 
+    return this.http.post('https://angular2-vaibhsa.herokuapp.com/registration',   
+      key.value, 
+      {
+        headers:headers
+      }).pipe(map(res => res.json()));
   }
 
 }

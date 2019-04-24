@@ -5,19 +5,23 @@ import { DashboardComponent }      from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 //import {routes} from 'app-routes';
 const routes: Routes = [
   { path: '', component: HomeComponent }, 	
   { path: 'dashboard', component: DashboardComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegistrationComponent }
+  { path: 'register', component: RegistrationComponent },
+  { path: 'shoppingCart', component: ShoppingCartComponent }
 ];
 @NgModule({
-  imports: [
+  imports: [  
     RouterModule.forRoot(routes)
   ],
-  exports: [ RouterModule ],
+  exports: [ 
+  	RouterModule 
+  ],
   declarations: []
 })
 export class AppRoutingModule { }

@@ -24,6 +24,7 @@
     "angular2-flash-messages": "^3.0.1",
     "compass-mixins": "^0.12.10",
     "core-js": "^2.5.4",
+    "ngx-spinner": "^7.1.4",
     "rxjs": "6.0.0",
     "zone.js": "^0.8.26"
   },

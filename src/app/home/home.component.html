@@ -9,7 +9,7 @@
 	                <p class="description">{{ product.description }}</p>
 	                <div class="clearfix">
 	                    <div class="price pull-left">${{ product.price }}</div>
-	                    <a href="/add-to-cart/{{product._id}}" class="btn btn-success pull-right" role="button">Add to Shopping Cart</a>
+	                    <a (click)="cart(product)" class="btn btn-success pull-right" role="button">Add to Shopping Cart</a>
 	                </div>
 	            </div>
 	        </div>
@@ -17,3 +17,4 @@
 
 	</ng-container>
 </div>
+
