@@ -6,17 +6,11 @@ import { Headers, Http } from '@angular/http';
 
 import { map } from 'rxjs/operators';
 
-import {
-
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { FlashMessagesService } from 'angular2-flash-messages';
 
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from 
-       '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 declare var Auth0Lock;
 
@@ -50,8 +44,13 @@ export class CartService {
 
   clearCart(){
 
+    console.log("ClearCart()");
+
     localStorage.removeItem("qty");
     localStorage.removeItem("products");
+
+    console.log(localStorage.getItem("products"));
+
     this.router.navigate(['/']);
   }
 }

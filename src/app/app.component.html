@@ -6,14 +6,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="#">Admin Panel</a>
+            <a class="brand" href="#">ShoppingAtBest</a>
             <div class="nav-collapse collapse">                
                 <ul *ngIf="!(auth.loggedIn())" class="nav pull-right">
                     <li *ngIf="(cartService.cartQTY())">
                         <a (click)="cartService.clearCart()">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i> Reset Cart
                             <!-- <span class="badge">{{cartService.cartQTY()}}</span> -->
-                            
                         </a>
                     </li>
                     <li [routerLinkActive]="['active']">
@@ -35,10 +34,16 @@
                     </li>
                 </ul> <!-- nav pull-right *ngIf="!(auth.loggedIn())" -->               
                 <ul *ngIf="auth.loggedIn()" class="nav pull-right">
+                    <li *ngIf="(cartService.cartQTY())">
+                        <a (click)="cartService.clearCart()">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> Reset Cart
+                            <!-- <span class="badge">{{cartService.cartQTY()}}</span> -->
+                        </a>
+                    </li>
                     <li [routerLinkActive]="['active']">
                         <a routerLink="/shoppingCart">
                             <i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart
-                            <span class="badge">1</span>
+                            <span class="badge">{{cartService.cartQTY()}}</span>
                             <!-- <span class="badge">{{session.cart.totalQty}}</span> -->
                         </a>
                     </li>  
@@ -65,14 +70,14 @@
                     <li [routerLinkActive]="['active']">
                         <a routerLink="/dashboard">Dashboard</a>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings <b class="caret"></b>
+                    <li ngbDropdown class="dropdown">
+                        <a ngbDropdownToggle data-toggle="dropdown" class="dropdown-toggle">Settings <b class="caret"></b>
                         </a>
-                        <ul class="dropdown-menu" id="menu1">
-                            <li>
-                                <a href="#">Tools <i class="icon-arrow-right"></i>
+                        <ul ngbDropdownMenu class="dropdown-menu" id="menu1">
+                            <li ngbDropdown>
+                                <a ngbDropdownToggle data-toggle="dropdown" class="dropdown-toggle">Tools <i class="icon-arrow-right"></i>
                                 </a>
-                                <ul class="dropdown-menu sub-menu">
+                                <ul ngbDropdownMenu class="dropdown-menu sub-menu">
                                     <li>
                                         <a href="#">Reports</a>
                                     </li>
@@ -99,44 +104,8 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Content <i class="caret"></i>
-
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a tabindex="-1" href="#">Blog</a>
-                            </li>
-                            <li>
-                                <a tabindex="-1" href="#">News</a>
-                            </li>
-                            <li>
-                                <a tabindex="-1" href="#">Custom Pages</a>
-                            </li>
-                            <li>
-                                <a tabindex="-1" href="#">Calendar</a>
-                            </li>
-                            <li class="divider"></li>
-                            <li>
-                                <a tabindex="-1" href="#">FAQ</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Users <i class="caret"></i>
-
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a tabindex="-1" href="#">User List</a>
-                            </li>
-                            <li>
-                                <a tabindex="-1" href="#">Search</a>
-                            </li>
-                            <li>
-                                <a tabindex="-1" href="#">Permissions</a>
-                            </li>
-                        </ul>
+                    <li [routerLinkActive]="['active']">
+                        <a>ContactUs</a>
                     </li>
                 </ul>
             </div>
@@ -177,28 +146,9 @@
                     <a href="#"><i class="icon-chevron-right"></i> UI & Interface</a>
                 </li>
                 <li>
-                    <a href="#"><span class="badge badge-success pull-right">731</span> Orders</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge badge-success pull-right">812</span> Invoices</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge badge-info pull-right">27</span> Clients</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge badge-info pull-right">1,234</span> Users</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge badge-info pull-right">2,221</span> Messages</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge badge-info pull-right">11</span> Reports</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge badge-important pull-right">83</span> Errors</a>
-                </li>
-                <li>
-                    <a href="#"><span class="badge badge-warning pull-right">4,231</span> Logs</a>
+                    <a href="#"><i class="icon-chevron-right"></i> 
+                        Orders
+                    </a>
                 </li>
             </ul>
         </div>    
@@ -221,3 +171,4 @@
         <hr>
     </div>
 </div>
+

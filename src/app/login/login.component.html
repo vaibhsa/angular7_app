@@ -18,7 +18,7 @@
         </div>
 
         <div class="form-label-group">
-
+        
           <label for="inputPassword">Password</label>
           <input type="password" id="inputPassword" class="form-control" placeholder="Password" [formControl]="password">
           
@@ -27,8 +27,7 @@
             </div>
             <div [hidden]="!password.hasError('required')" class="alert alert-danger">       password is required
             </div>
-          </div>
-
+          </div> 
         </div>
 
         <div class="custom-control custom-checkbox mb-3">
@@ -36,7 +35,7 @@
         </div>
         <button [disabled]="!loginForm.valid" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
         <hr class="my-4">
-        <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
+        <button [disabled]="true" class="btn btn-lg btn-google btn-block text-uppercase" type="submit"><i class="fab fa-google mr-2"></i> Sign in with Google</button>
       </form>
     </div>
   </div>

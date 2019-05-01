@@ -48,9 +48,16 @@ export class ShoppingCartComponent implements OnInit {
         this.productCart[i].qty -= 1;
         this.productCart[i].price *= this.productCart[i].qty;
       }
+
       if(this.productCart[i].qty == 0){
+      
         this.totalPrice += this.productCart[i].price;
         this.productCart.splice(i, 1);    
+
+        localStorage.setItem("products", JSON.stringify(this.productCart));
+        var qtyP = this.productCart.length;
+        localStorage.setItem('qty', qtyP.toString());
+
       }else{
         this.totalPrice += this.productCart[i].price;
       } 
@@ -81,9 +88,7 @@ export class ShoppingCartComponent implements OnInit {
     }
     
     localStorage.setItem("products", JSON.stringify(this.productCart));
-
     var qtyP = this.productCart.length;
-
     console.log(this.productCart);
     localStorage.setItem('qty', qtyP.toString());
 
