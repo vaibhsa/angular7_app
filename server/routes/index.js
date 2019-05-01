@@ -112,8 +112,7 @@ router.post('/logout', function(req, res) {
         // removed!
         res.json({"message":"success"});
         // res.json({"message":"success","username":req.body.email});
-    });
-    
+    });  
 });
 
 router.post('/registration',function(req,res,next){

@@ -9,7 +9,10 @@ var mongoose = require('mongoose');
 var path = require('path');
 const http = require('http');
 // var taskRoutes = require('./server/routes/task.js');
+
 var apiRoutes = require('./server/routes/index.js');
+var productRoutes = require('./server/routes/product_detail.js');
+
 var auth0Settings = require('./server/auth0.json');
 
 mongoose.connect('mongodb://vaibhsa:123456@ds125183.mlab.com:25183/sample');
@@ -29,9 +32,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// app.use('/',taskRoutes);
+
 // app.use('/api',jwtCheck);
 app.use('/api',apiRoutes);
+
+app.use('/product', productRoutes);
 
 const port = process.env.PORT || '3000';
 app.set('port', port);
