@@ -25,10 +25,10 @@ declare var Auth0Lock;
 export class AuthService {
 	
   constructor(
-    private http:Http, 
+    private http: Http, 
     private ngZone: NgZone, 
     private router: Router, 
-    private flash:FlashMessagesService) {}
+    private flash: FlashMessagesService) {}
 
   flag : boolean = false;
 

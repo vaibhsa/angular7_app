@@ -3,7 +3,11 @@ var router = express.Router();
 var User = require('../models/user');
 var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var Loggedinuser = require('../models/loggedinuser');
+
+var multer = require('multer');
+
 var app = express();
+
 app.set('superSecret', 'config.secret'); // secret variable
 
 router.get('/settoken', function(req, res) {

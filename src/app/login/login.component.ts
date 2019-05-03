@@ -24,23 +24,31 @@ export class LoginComponent implements OnInit {
     loginForm: FormGroup;
   	email: FormControl;
   	password: FormControl;
+    returnUrl: string;
 
   	constructor(
       private router: Router,
       private authenticationService: AuthService, 
       private builder: FormBuilder,
       private flash: FlashMessagesService,
-      private spinner: NgxSpinnerService
+      private spinner: NgxSpinnerService,
+      private route: ActivatedRoute
     ) {
 
     	this.createForm();
   	}
 
   	ngOnInit() {
-  	}
+
+ 	   this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
 
   	createForm() {
-	  	
+	  	// redirect to home if already logged in
+      if (this.authenticationService.loggedIn()) { 
+        this.router.navigate(['/']);
+      }
+
 	  	this.email = new FormControl('', [
       	  Validators.email,
       	  Validators.required,
@@ -70,7 +78,7 @@ export class LoginComponent implements OnInit {
           if(data.success == true){
             localStorage.setItem('email', data.email);
             localStorage.setItem('token', data.token);
-            this.router.navigate(['/']);
+            this.router.navigate([this.returnUrl]);
           }
           else{
 

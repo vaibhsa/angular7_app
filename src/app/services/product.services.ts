@@ -18,11 +18,12 @@ declare var Auth0Lock;
 
 export class ProductService {
 	
-  constructor(
-    private http:Http, 
+  constructor (
+    private http: Http, 
     private ngZone: NgZone, 
     private router: Router, 
-    private flash:FlashMessagesService) {}
+    private flash: FlashMessagesService
+  ) {}
 
   flag : boolean = false;
 
@@ -34,7 +35,7 @@ export class ProductService {
     //     console.log("reloaded");
     // }
       return this.http.get(
-      'http://localhost:3000/product',
+      'http://localhost:3000/api/product',
       // 'https://angular2-vaibhsa.herokuapp.com/task_get',
       ).pipe(map(res => res.json()));
   }

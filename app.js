@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // app.use('/api',jwtCheck);
 app.use('/api',apiRoutes);
 
-app.use('/product', productRoutes);
+app.use('/api/product', productRoutes);
 
 const port = process.env.PORT || '3000';
 app.set('port', port);

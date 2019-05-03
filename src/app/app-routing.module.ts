@@ -7,13 +7,15 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
+import { AuthGuard } from './_guards';
+
 //import {routes} from 'app-routes';
 const routes: Routes = [
-  { path: '', component: HomeComponent }, 	
-  { path: 'dashboard', component: DashboardComponent },
+  { path: '', component: DashboardComponent },
+  { path: 'home', component: HomeComponent },   
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: 'shoppingCart', component: ShoppingCartComponent }
+  { path: 'shoppingCart', component: ShoppingCartComponent, canActivate: [AuthGuard] }
 ];
 @NgModule({
   imports: [  

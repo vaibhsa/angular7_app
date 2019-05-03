@@ -13,6 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegistrationComponent } from './registration/registration.component';
 import { AuthService } from './services/auth.services';
 import { CartService } from './services/cart.services';
+import { ProductService } from './services/product.services';
 
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { HttpModule } from '@angular/http';
@@ -43,7 +44,8 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
   ],
   providers: [
     AuthService,
-    CartService
+    CartService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })

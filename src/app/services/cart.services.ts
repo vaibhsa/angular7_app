@@ -10,7 +10,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 
 import { FlashMessagesService } from 'angular2-flash-messages';
 
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, CanActivate,ActivatedRoute, RouterStateSnapshot } from '@angular/router';
 
 declare var Auth0Lock;
 
@@ -18,11 +18,17 @@ declare var Auth0Lock;
 
 export class CartService {
 	
+  returnUrl:string;
   constructor(
     private http:Http, 
     private ngZone: NgZone, 
     private router: Router, 
-    private flash:FlashMessagesService) {}
+    private flash:FlashMessagesService,
+    private route: ActivatedRoute
+  ) {
+
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+  }
 
   flag : boolean = false;
 
@@ -51,7 +57,7 @@ export class CartService {
 
     console.log(localStorage.getItem("products"));
 
-    this.router.navigate(['/']);
+    this.router.navigate([this.returnUrl]);
   }
 }
 
