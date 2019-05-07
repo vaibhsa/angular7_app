@@ -58,7 +58,7 @@ export class AuthService {
     var headers = new Headers();
     headers.append('content-Type','application/json');
 
-    return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/login', 
+    return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/logout', 
     // return this.http.post('http://localhost:3000/api/logout', 
         body, {
               headers:headers
