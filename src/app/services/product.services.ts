@@ -35,8 +35,8 @@ export class ProductService {
     //     console.log("reloaded");
     // }
       return this.http.get(
-      'http://localhost:3000/api/product',
-      // 'https://angular2-vaibhsa.herokuapp.com/task_get',
+      // 'http://localhost:3000/api/product',
+      'https://angular7-shopping-cart.herokuapp.com/api/product'
       ).pipe(map(res => res.json()));
   }
 
