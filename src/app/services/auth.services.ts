@@ -38,8 +38,8 @@ export class AuthService {
     headers.append('content-Type','application/json');
     console.log("From Login() function.............");
 
-    // return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/login', 
-    return this.http.post('http://localhost:3000/api/login', 
+    return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/login', 
+    // return this.http.post('http://localhost:3000/api/login', 
         key.value, {
           headers:headers
       }).pipe(map(res => res.json()))
@@ -58,8 +58,8 @@ export class AuthService {
     var headers = new Headers();
     headers.append('content-Type','application/json');
 
-    // return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/login', 
-    return this.http.post('http://localhost:3000/api/logout', 
+    return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/login', 
+    // return this.http.post('http://localhost:3000/api/logout', 
         body, {
               headers:headers
            }).pipe(map(res => res.json()))
