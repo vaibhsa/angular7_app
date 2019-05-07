@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {AuthService} from './services/auth.services';
+import { AuthService } from './services/auth.services';
 import { CartService } from './services/cart.services';
 
 @Component({
@@ -13,11 +13,13 @@ export class AppComponent {
 	
   title = 'app';
 
-  constructor(public auth: AuthService, public cartService: CartService) {
+  constructor( public auth: AuthService, public cartService: CartService ) {
   	// localStorage.removeItem("qty");
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+  	
+  }
 
 }
 

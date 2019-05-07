@@ -42,6 +42,7 @@ export class ShoppingCartComponent implements OnInit {
     console.log(product);
     this.totalPrice = 0;
     for(var i=0; i< this.productCart.length; i++){
+
       if(this.productCart[i]._id == product._id){
         console.log("Clicked reduceByOne");
         this.productCart[i].price  /= this.productCart[i].qty;
@@ -60,7 +61,8 @@ export class ShoppingCartComponent implements OnInit {
 
       }else{
         this.totalPrice += this.productCart[i].price;
-      } 
+      }
+       
     }
   }
 
