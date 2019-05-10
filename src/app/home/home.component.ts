@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
 import { CartService } from '../services/cart.services';
 import { ProductService } from '../services/product.services';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -15,12 +15,17 @@ export class HomeComponent implements OnInit {
   
   productCart: Array<{_id: number, title: string, description: string, price: number, imagePath: string, qty: number}> = [];
 
-  constructor(private productService: ProductService) { }
+  constructor(
+    private productService: ProductService,
+    private spinner: NgxSpinnerService
+  ) { }
   
   ngOnInit() {
-
+    
+    this.spinner.show();
     this.productService.productGame().subscribe(
       (data)=>{
+        this.spinner.hide();
         this.products = data.products;
         console.log(data.products);
       },      

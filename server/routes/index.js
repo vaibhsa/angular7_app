@@ -137,10 +137,27 @@ router.post('/registration',function(req,res,next){
                        console.log(err);
                        return res.json({"message":"error"});      
                     }
+                    console.log("success");
                     res.json({"message":"success","email":req.body.email});
                 });
             }
         });     
+});
+
+router.post('/reset-password', function(req,res){
+
+    var query = { email: req.body.email };
+    User.findOneAndUpdate(query,{ password:req.body.password },
+        function(err){
+            if(err){
+               console.log(err);
+               return res.json({"message":"error"});      
+            }
+            res.json({
+                message: "success",
+                success: 'password updated!'
+            });     
+        });
 });
 
 module.exports = router;

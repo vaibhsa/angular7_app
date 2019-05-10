@@ -15,6 +15,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { FlashMessagesService } from 'angular2-flash-messages';
 
+import { AngularFireAuth } from "@angular/fire/auth";
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -32,7 +34,8 @@ export class RegistrationComponent implements OnInit {
 		private builder: FormBuilder, 
 		private authenticationService: AuthService,
 		private router: Router,
-		private flash: FlashMessagesService
+		private flash: FlashMessagesService,
+		private afAuth: AngularFireAuth
 	) {
 
 		this.createForm();
@@ -48,6 +51,9 @@ export class RegistrationComponent implements OnInit {
 		data => {
 		  if(data.message == "success"){
 		    console.log(data.message);
+		    this.afAuth.auth.createUserWithEmailAndPassword(this.registerForm.value.email, this.registerForm.value.password);
+			
+			// this.afAuth.auth.currentUser.sendEmailVerificationCode();		    
 		    localStorage.setItem('email',data.email);
 		    localStorage.setItem('token',data.token);
 		    this.router.navigate(['/']);

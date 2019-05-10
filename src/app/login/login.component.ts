@@ -93,4 +93,15 @@ export class LoginComponent implements OnInit {
     );    
 	}
 
+  resetPassword(){
+    if (!this.email.value) { 
+      alert('Type in your email first'); 
+    }
+    this.authenticationService.resetPasswordInit(this.email.value) 
+    .then(() => alert('A password reset link has been sent to your email address'), 
+      (rejectionReason) => alert('hello'+rejectionReason)) 
+    .catch(e => alert('An error occurred while attempting to reset your password'));
+
+  }
+
 }

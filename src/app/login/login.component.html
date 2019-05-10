@@ -25,13 +25,13 @@
           <div [hidden]="password.valid || password.untouched">
             <div [hidden]="!password.hasError('minlength')" class="alert alert-danger">       password should be greater than 5                
             </div>
-            <div [hidden]="!password.hasError('required')" class="alert alert-danger">       password is required
+            <div [hidden]="!password.hasError('required')" class="alert alert-danger">             password is required
             </div>
           </div> 
         </div>
 
-        <div class="custom-control custom-checkbox mb-3">
-          <label class="custom-control-label" for="customCheck1">Forgot password</label>
+        <div class="custom-control custom-checkbox mb-3" (click)="resetPassword()">
+          <label class="custom-control-label" for="customCheck1">Reset/Forgot password</label>
         </div>
         <button [disabled]="!loginForm.valid" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
         <hr class="my-4">
