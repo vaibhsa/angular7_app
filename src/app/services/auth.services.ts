@@ -116,8 +116,8 @@ export class AuthService {
     // console.log(key.value);
     var headers = new Headers();
     headers.append('content-Type','application/json');
-    return this.http.post('http://localhost:3000/api/registration', 
-    // return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/registration',   
+    // return this.http.post('http://localhost:3000/api/registration', 
+    return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/registration',   
       key.value, 
       {
         headers:headers
@@ -134,8 +134,8 @@ export class AuthService {
 
     var headers = new Headers();
     headers.append('content-Type','application/json');
-    return this.http.post('http://localhost:3000/api/reset-password', 
-    // return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/registration',   
+    // return this.http.post('http://localhost:3000/api/reset-password', 
+    return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/reset-password',   
       body, 
       {
         headers:headers
