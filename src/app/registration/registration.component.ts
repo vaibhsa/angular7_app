@@ -45,25 +45,54 @@ export class RegistrationComponent implements OnInit {
 
 	}
 
+	onFileChange(event) {
+
+		// console.log(event.target.files);
+		if (event.target.files.length > 0) {
+		
+		  const file = event.target.files[0];
+		  this.registerForm.get('profile').setValue(file);
+		}
+	}
+
+	onSubmit() {
+
+
+
+	}
+
 	register() {
-      this.authenticationService.create(this.registerForm)
-      .subscribe(
-		data => {
-		  if(data.message == "success"){
-		    console.log(data.message);
-		    this.afAuth.auth.createUserWithEmailAndPassword(this.registerForm.value.email, this.registerForm.value.password);
-			
-			// this.afAuth.auth.currentUser.sendEmailVerificationCode();		    
-		    localStorage.setItem('email',data.email);
-		    localStorage.setItem('token',data.token);
-		    this.router.navigate(['/']);
-		  }else{
-		    this.flash.show(data.email+' Email already exist', { timeout: 3000,cssClass: 'alert-success' });
-		    this.router.navigate(['/register']); 
-		  }
-		},
-		error => {
-			console.log(error);
+
+		const formData = new FormData();
+
+		// console.log(this.registerForm.get('profile').value);
+
+		formData.append('profile', this.registerForm.get('profile').value);
+		formData.append('email', this.registerForm.value.email);
+		formData.append('username', this.registerForm.value.username);
+		formData.append('password', this.registerForm.value.password);
+
+		// console.log(this.registerForm.value.email);	
+
+	    this.authenticationService.create(this.registerForm)
+	    .subscribe(
+			data => {
+			  if(data.message == "success"){
+			    console.log(data.message);
+			    this.afAuth.auth.createUserWithEmailAndPassword(this.registerForm.value.email, this.registerForm.value.password);
+				
+				// this.afAuth.auth.currentUser.sendEmailVerificationCode();		    
+			    localStorage.setItem('email',data.email);
+			    localStorage.setItem('token',data.token);
+			    this.router.navigate(['/']);
+			  }else{
+			    this.flash.show(data.email+' Email already exist', { timeout: 3000,cssClass: 'alert-success' });
+			    this.registerForm.reset();
+			    this.router.navigate(['/register']); 
+			  }
+			},
+			error => {
+				console.log(error);
 		});
   	}
 
@@ -95,7 +124,8 @@ export class RegistrationComponent implements OnInit {
 		    email: this.email,
 		    username: this.username,
 		    password: this.password,
-		    cPassword: this.cPassword
+		    cPassword: this.cPassword,
+		    profile: ['']
 	    },{
 	    	//validator: MustMatch('password', 'confirmPassword')
 	    	validator: MustMatch(this.password, this.cPassword)

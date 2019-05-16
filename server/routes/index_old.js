@@ -6,7 +6,7 @@ var Loggedinuser = require('../models/loggedinuser');
 
 var multer = require('multer');
 var path = require('path');
-
+var Q = require('q');
 var app = express();
 
 app.set('superSecret', 'config.secret'); // secret variable
@@ -26,67 +26,75 @@ var upload = multer({ storage: storage }).single('profile');
 
 
 router.post('/register1', upload,function (req, res, next) {
-    // console.log(req.headers['x-token']);
 
-    if(req.headers['x-token']){
-        function initPromise() {
+    function initPromise() {
 
-            return new Promise(function(res,rej) {
-                
-
-                // var ret to remove public/ from the file path
-                var ret = req.file.path;
-                console.log("ret"+ret);
-                // req.headers.host will give the host eg: localhost:3000
-                var fileFullPath = req.protocol+'://' + req.headers.host + '/' + ret;
-
-                res(fileFullPath);
-            })
-        }
-        
-        return initPromise().then(result => {
+        return new Promise(function(res,rej) {
             
-            var value ;
-            console.log("hello-1");    
-             return User.findOne({email: req.body.email}).then(obj => {
-                return {res: result, obj: obj};
-            }).catch(e => {
-                console.log(e);
-                throw new Error("ERROR")
-            })
-
-        }).then(function(result) {
-
-            console.log(result);
+            // var ret to remove public/ from the file path
+            var ret = req.file.path;
             
-            if(result.obj != null){
+            // req.headers.host will give the host eg: localhost:3000
+            var fileFullPath = req.protocol+'://' + req.headers.host + '/' + ret;
 
-                // console.log(obj.value);
-                return res.json({"message":"failure","email":req.body.email});
-            }else{
-                
-                var user = new User({
-                    email: req.body.email,
-                    username: req.body.username,
-                    password: req.body.password,
-                    image_url: result.res
-                });
-                
-                user.save(function(err) {
-                    if(err){
-                       console.log(err);
-                       return res.json({"message":"error"});      
-                    }
-                    console.log("success");
-                    res.json({"message":"success","email":req.body.email});
-                });
-            }
-        }).catch((err) => {
-            console.log(err.message);
-        });
-    }else{
-        return res.json({"Status":"failure","message":"You can't run api from browser directly"});
+            res(fileFullPath);
+        })
     }
+
+    Q.fcall(() => {
+        var ret = req.file.path;
+        
+        // req.headers.host will give the host eg: localhost:3000
+        var fileFullPath = req.protocol+'://' + req.headers.host + '/' + ret;
+
+        return fileFullPath;
+    }).then(result => {
+        
+        var value ;
+        // console.log(req.body.email);
+
+        return User.findOne({email: req.body.email}, (err, obj) => {
+            if (err) console.log(err);
+            var obj1 = {};
+            obj1.res = result;
+            obj1.obj = obj;
+            console.log(obj1)
+            return Q(obj1);
+        })
+
+        // return User.findOne({email: req.body.email}).then(obj => {
+        //     return {res: result, obj: obj};
+        // }).catch(e => {
+        //     console.log(e);
+        //     throw new Error("ERROR")
+        // })
+    }).then(function(obj) {
+
+        console.log(obj);
+        
+        if(obj.value != null){
+            // console.log(obj.value);
+            return res.json({"message":"failure","email":req.body.email});
+        }else{
+            var user = new User({
+                email: req.body.email,
+                username: req.body.username,
+                password: req.body.password,
+                image_url: obj.result
+            });
+            user.save(function(err) {
+                if(err){
+                   console.log(err);
+                   return res.json({"message":"error"});      
+                }
+                console.log("success");
+                res.json({"message":"success","email":req.body.email});
+            });
+        }
+    }).catch((err) => {
+        console.log(err.message);
+    });
+
 });
 
 

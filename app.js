@@ -11,6 +11,7 @@ const http = require('http');
 // var taskRoutes = require('./server/routes/task.js');
 
 var apiRoutes = require('./server/routes/index.js');
+
 var productRoutes = require('./server/routes/product_detail.js');
 
 var auth0Settings = require('./server/auth0.json');
@@ -35,6 +36,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // app.use('/api',jwtCheck);
 app.use('/api',apiRoutes);
+
+// to display the image.
+app.use('/public/uploads', express.static('./public/uploads'));
 
 app.use('/api/product', productRoutes);
 

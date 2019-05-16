@@ -19,6 +19,7 @@ import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from
        '@angular/router';
 
 import { AngularFireAuth } from "@angular/fire/auth"; 
+
 import * as firebase from "firebase"; 
 
 declare var Auth0Lock;
@@ -82,46 +83,68 @@ export class AuthService {
     return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/logout', 
     // return this.http.post('http://localhost:3000/api/logout', 
         body, {
-              headers:headers
-           }).pipe(map(res => res.json()))
-            .subscribe(
-              data => {
-                console.log(data);
-                if(data.message =='success'){
+          headers:headers
+       }).pipe(map(res => res.json()))
+        .subscribe(
 
-                  localStorage.removeItem('email');
-                  localStorage.removeItem('token');
-                  this.flag = false;
-                  this.loggedIn();
-                  this.flash.show('LoggedOut successfully', { timeout: 3000,cssClass: 'alert-success' });
-                  this.router.navigate(['/']);             
-                }else{
-                  
-                  this.flash.show('Some problem with logout', { timeout: 3000,cssClass: 'alert-success' });
-                }
-            });
+          data => {            
+          
+            console.log(data);
+
+            if(data.message =='success'){
+
+              localStorage.removeItem('email');
+              localStorage.removeItem('token');
+              this.flag = false;
+              this.loggedIn();
+              this.flash.show('LoggedOut successfully', { timeout: 3000,cssClass: 'alert-success' });
+              this.router.navigate(['/']);
+
+            }else{
+              
+              this.flash.show('Some problem with logout', { timeout: 3000,cssClass: 'alert-success' });
+            }
+        });
   }
 
   loggedIn() {
 
-    if (localStorage.getItem('email')) {
+    if(localStorage.getItem('email')) {
+
       return true;
     }
 
     return false;
   }
 
-  create(key: FormGroup) {
+  create(key: any) {
 
-    // console.log(key.value);
-    var headers = new Headers();
-    headers.append('content-Type','application/json');
-    // return this.http.post('http://localhost:3000/api/registration', 
-    return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/registration',   
-      key.value, 
-      {
-        headers:headers
-      }).pipe(map(res => res.json()));
+    // console.log(key.value.profile.name);
+
+    const formData = new FormData(); 
+
+    formData.append('profile', key.value.profile, key.value.profile.name);
+    // formData.append("profile", 
+    //   {uri: key.value.profile, name: 'image.jpg', type: 'multipart/form-data'});
+    formData.append('email', key.value.email);
+    formData.append('username', key.value.username);
+    formData.append('password', key.value.password);
+
+    console.log(formData.get("username"));
+    console.log(formData.get("email"));
+
+    let headers = new Headers();
+    // headers.append('Content-Type', 'multipart/form-data');
+    headers.append('x-token', '5');
+    // headers.append('Accept', 'application/json');
+
+
+
+    return this.http.post('http://localhost:3000/api/register1', 
+    // return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/registration',   
+      formData,
+      {headers}
+    ).pipe(map(res => res.json()));
   }
 
   resetPasswordMongo(email, password){
