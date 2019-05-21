@@ -25,6 +25,7 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuth } from "@angular/fire/auth"; 
 import { environment } from '../environments/environment';
+import { ProductAddComponent } from './product-add/product-add.component';
 
 @NgModule({
 
@@ -35,7 +36,8 @@ import { environment } from '../environments/environment';
     HomeComponent,
     RegistrationComponent,
     ShoppingCartComponent,
-    UserManagementComponent
+    UserManagementComponent,
+    ProductAddComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,75 @@
+<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+  <div class="card card-signin my-5">
+    <div class="card-body">
+      <h5 class="card-title text-center">Add Product</h5>
+      <form class="form-signin" [formGroup]="productForm" (ngSubmit)="addProduct()">
+
+        <div class="form-label-group">
+          <label for="inputTitle">Title</label>
+          <input type="text" id="inputTitle" class="form-control" placeholder="Title" [formControl]="title" autofocus>
+          
+
+          <div [hidden]="title.valid || title.untouched">
+            <div [hidden]="!title.hasError('required')" class="alert alert-danger">       
+            	Title is required
+            </div>
+          </div>
+        </div>
+
+        <div class="form-label-group">
+
+          <label for="inputDescription">Description</label>
+          <input type="text" id="inputDescription" class="form-control" placeholder="Description" 
+          [formControl]="description" >
+          
+          <div [hidden]="description.valid || description.untouched">
+            <div [hidden]="!description.hasError('required')" class="alert alert-danger">       	description is required
+            </div>            
+          </div>
+        </div>
+
+        <div class="form-label-group">
+
+          <label for="inputPrice">
+            Price
+          </label>
+          
+          <input type="text" id="inputPrice" class="form-control" placeholder="Price" [formControl]="price">
+          
+          <div [hidden]="price.valid || price.untouched">
+            
+            <div [hidden]="!price.hasError('required')" class="alert alert-danger">               	price is required
+            </div>
+
+            <div [hidden]="!price.hasError('pattern')" class="alert alert-danger">               	price should be numeric
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="form-label-group">
+
+          <label for="inputImage">
+            Image
+          </label>
+          
+          <input type="text" id="inputImage" class="form-control" placeholder="Image" [formControl]="image">
+          
+          <div [hidden]="image.valid || image.untouched">
+            
+            <div [hidden]="!image.hasError('required')" class="alert alert-danger">               	image is required
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <button [disabled]="!productForm.valid" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
+        	Add Product
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

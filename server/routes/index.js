@@ -207,6 +207,7 @@ router.post('/registration',function(req,res,next){
             if(value){
                 return res.json({"message":"failure","email":req.body.email});
             }else{
+                
                 var user = new User({
                     email: req.body.email,
                     username: req.body.username,
