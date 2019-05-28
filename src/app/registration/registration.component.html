@@ -9,7 +9,7 @@
           
 
           <div [hidden]="email.valid || email.untouched">
-            <div [hidden]="!email.hasError('required')" class="alert alert-danger">       Email is required
+            <div [hidden]="!email.hasError('required')" class="alert alert-danger">                Email is required
             </div>
             <div [hidden]="!email.hasError('pattern')" class="alert alert-danger">            Email format should be 
               <small><b>vai@abc.com</b></small>

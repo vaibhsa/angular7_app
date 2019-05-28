@@ -13,9 +13,10 @@ import { takeUntil } from 'rxjs/operators';
 export class UserManagementComponent implements OnInit {
 
 	ngUnsubscribe: Subject<any> = new Subject<any>();
-	// actions = UserManagementActions;
 
+	// actions = UserManagementActions;
 	// The user management actoin to be completed
+	
 	mode: string;
 	// Just a code Firebase uses to prove that
 	// this is a real password reset.

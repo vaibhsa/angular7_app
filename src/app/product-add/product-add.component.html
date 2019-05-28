@@ -30,21 +30,21 @@
 
         <div class="form-label-group">
 
-          <label for="inputPrice">
-            Price
-          </label>
-          
-          <input type="text" id="inputPrice" class="form-control" placeholder="Price" [formControl]="price">
-          
-          <div [hidden]="price.valid || price.untouched">
-            
-            <div [hidden]="!price.hasError('required')" class="alert alert-danger">               	price is required
-            </div>
+			<label for="inputPrice">
+				Price
+			</label>
 
-            <div [hidden]="!price.hasError('pattern')" class="alert alert-danger">               	price should be numeric
-            </div>
+			<input type="text" id="inputPrice" class="form-control" placeholder="Price" [formControl]="price">
 
-          </div>
+			<div [hidden]="price.valid || price.untouched">
+
+				<div [hidden]="!price.hasError('required')" class="alert alert-danger">            price is required
+				</div>
+
+				<div [hidden]="!price.hasError('pattern')" class="alert alert-danger">             price should be numeric
+				</div>
+
+			</div>
 
         </div>
 
@@ -54,11 +54,11 @@
             Image
           </label>
           
-          <input type="text" id="inputImage" class="form-control" placeholder="Image" [formControl]="image">
+          <input type="text" id="inputImage" class="form-control" placeholder="Image" [formControl]="imagePath">
           
-          <div [hidden]="image.valid || image.untouched">
+          <div [hidden]="imagePath.valid || imagePath.untouched">
             
-            <div [hidden]="!image.hasError('required')" class="alert alert-danger">               	image is required
+            <div [hidden]="!imagePath.hasError('required')" class="alert alert-danger">               	image is required
             </div>
 
           </div>

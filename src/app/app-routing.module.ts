@@ -10,6 +10,7 @@ import { UserManagementComponent } from './user-management/user-management.compo
 import { ProductAddComponent } from './product-add/product-add.component';
 
 import { AuthGuard } from './_guards';
+import { AuthGuardAdmin } from './_guards';
 
 //import {routes} from 'app-routes';
 const routes: Routes = [
@@ -19,8 +20,9 @@ const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'userMgmt', component: UserManagementComponent },
   { path: 'shoppingCart', component: ShoppingCartComponent, canActivate: [AuthGuard] },
-  { path: 'productAdd', component: ProductAddComponent }
+  { path: 'productAdd', component: ProductAddComponent, canActivate: [AuthGuardAdmin] }
 ];
+
 @NgModule({
   imports: [  
     RouterModule.forRoot(routes)

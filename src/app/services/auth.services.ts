@@ -22,6 +22,8 @@ import { AngularFireAuth } from "@angular/fire/auth";
 
 import * as firebase from "firebase"; 
 
+import { NgxSpinnerService } from 'ngx-spinner';
+
 declare var Auth0Lock;
 
 @Injectable()
@@ -33,7 +35,8 @@ export class AuthService {
     private ngZone: NgZone, 
     private router: Router, 
     private flash: FlashMessagesService,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private spinner: NgxSpinnerService,
   ) {}
 
   flag : boolean = false;
@@ -70,11 +73,13 @@ export class AuthService {
   }
 
   logout() {
+
+    this.spinner.show();
     
     var email = localStorage.getItem('email');
 
     let body=JSON.stringify({ 
-        email: email
+      email: email
     });
 
     var headers = new Headers();
@@ -82,29 +87,30 @@ export class AuthService {
 
     return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/logout', 
     // return this.http.post('http://localhost:3000/api/logout', 
-        body, {
-          headers:headers
-       }).pipe(map(res => res.json()))
-        .subscribe(
+      body, {
+        headers:headers
+    }).pipe(map(res => res.json()))
+    .subscribe(
+      data => {            
+      
+        console.log(data);
 
-          data => {            
+        if(data.message =='success'){
+
+          localStorage.removeItem('email');
+          localStorage.removeItem('token');
+          localStorage.removeItem('role');
+          this.flag = false;
+          this.spinner.hide();
+          this.loggedIn();
+          this.flash.show('LoggedOut successfully', { timeout: 3000,cssClass: 'alert-success' });
+          this.router.navigate(['/']);
+
+        }else{
           
-            console.log(data);
-
-            if(data.message =='success'){
-
-              localStorage.removeItem('email');
-              localStorage.removeItem('token');
-              this.flag = false;
-              this.loggedIn();
-              this.flash.show('LoggedOut successfully', { timeout: 3000,cssClass: 'alert-success' });
-              this.router.navigate(['/']);
-
-            }else{
-              
-              this.flash.show('Some problem with logout', { timeout: 3000,cssClass: 'alert-success' });
-            }
-        });
+          this.flash.show('Some problem with logout', { timeout: 3000,cssClass: 'alert-success' });
+        }
+    });
   }
 
   loggedIn() {
@@ -115,6 +121,21 @@ export class AuthService {
     }
 
     return false;
+  }
+
+  role(){
+
+    // console.log(localStorage.getItem('role'));
+    var userrole : string;
+    userrole = localStorage.getItem('role'); 
+    
+    if(userrole == "1") {
+
+      return true;
+    }else{
+
+      return false;  
+    }  
   }
 
   create(key: any) {
@@ -138,10 +159,8 @@ export class AuthService {
     headers.append('x-token', '5');
     // headers.append('Accept', 'application/json');
 
-
-
-    return this.http.post('http://localhost:3000/api/register1', 
-    // return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/registration',   
+    // return this.http.post('http://localhost:3000/api/register1', 
+    return this.http.post('https://angular7-shopping-cart.herokuapp.com/api/register1',   
       formData,
       {headers}
     ).pipe(map(res => res.json()));
@@ -150,7 +169,6 @@ export class AuthService {
   resetPasswordMongo(email, password){
 
     let body=JSON.stringify({ 
-
         email: email,
         password: password
     });

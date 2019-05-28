@@ -73,6 +73,7 @@ router.post('/register1', upload,function (req, res, next) {
                 });
                 
                 user.save(function(err) {
+                    
                     if(err){
                        console.log(err);
                        return res.json({"message":"error"});      
@@ -125,13 +126,13 @@ router.post('/login', function(req, res) {
             
                 if (err) throw err;
 
+
+
                 if (!user) {
                   res.json({ success: false, message: 'Authentication failed. User not found.' });
                 } 
                 else if (user) {
-
-                    // console.log(unameT); //able to get the value here
-                   // check if password matches
+                    
                     if (user.password != req.body.password) {
                         res.json({ success: false, message: 'Authentication failed. Wrong password.' });
                     } 
@@ -142,13 +143,13 @@ router.post('/login', function(req, res) {
                         // we don't want to pass in the entire user since that has the password
 
                         const payload = {
-                          admin: user.admin 
+                          admin: 'user.admin' 
                         };
                         var token = jwt.sign(payload, app.get('superSecret'), {
                             // expiresInMinutes: 1440 // expires in 24 hours
                             expiresIn : 60*60*24
                         });
-
+                        
                         if(uemailT){
 
                             var query = { email: req.body.email };
@@ -158,12 +159,13 @@ router.post('/login', function(req, res) {
                                         success: true,
                                         message: 'token updated!',
                                         token: token,
-                                        email: req.body.email
+                                        email: req.body.email,
+                                        role: user.role
                                     });     
                                 });
-                            // return the information including token as JSON
-                            
+                            // return the information including token as JSON       
                         }else{
+
                             var tokenI = new Loggedinuser({
                                 email: req.body.email,
                                 token: token
@@ -175,7 +177,8 @@ router.post('/login', function(req, res) {
                                     success: true,
                                     message: 'Token Inserted!',
                                     token: token,
-                                    email: req.body.email
+                                    email: req.body.email,
+                                    role: user.role
                                 });
                             });
                         }

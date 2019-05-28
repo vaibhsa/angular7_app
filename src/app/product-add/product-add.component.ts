@@ -6,7 +6,11 @@ import {
   Validators
 } from '@angular/forms';
 
+import { ProductService } from '../services/product.services';
 
+import { FlashMessagesService } from 'angular2-flash-messages';
+
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-product-add',
@@ -19,16 +23,44 @@ export class ProductAddComponent implements OnInit {
   	title: FormControl;
   	description: FormControl;
   	price: FormControl;	
-  	image: FormControl;
+  	imagePath: FormControl;
 
-	constructor(private builder: FormBuilder) {
+	constructor(
+		private builder: FormBuilder,
+		private productService: ProductService,
+		private spinner: NgxSpinnerService,
+		private flash: FlashMessagesService
+	) {
 
 		this.createForm();
 	}
 
 	ngOnInit() {
+	
 	}
+
 	addProduct(){
+		
+		this.spinner.show();
+	    console.log(this.productForm.value);
+	    this.productService.addProduct(this.productForm)
+	    .subscribe(
+	        data => {
+
+	          console.log(data);
+	          this.spinner.hide();    
+	          this.productForm.reset();      
+	          this.flash.show('Product added successfully', { timeout: 3000,cssClass: 'alert-danger' });
+	        },
+	        error => {
+
+	          this.spinner.hide();
+	          this.productForm.reset();
+	          console.log(error);
+	          // console.log(Response);
+	        }
+	    );    
+
 		console.log(this.productForm.value);
 	}
 
@@ -47,7 +79,7 @@ export class ProductAddComponent implements OnInit {
 	    	Validators.required,
 	    	Validators.pattern("^[0-9]*$")
 	    ]);
-	    this.image = new FormControl('', [
+	    this.imagePath = new FormControl('', [
 
 	    	Validators.required
 	    ]);
@@ -57,7 +89,7 @@ export class ProductAddComponent implements OnInit {
 		    title: this.title,
 		    description: this.description,
 		    price: this.price,
-		    image: this.image,
+		    imagePath: this.imagePath,
 		    
 	    });
 	}

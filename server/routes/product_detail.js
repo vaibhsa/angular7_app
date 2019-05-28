@@ -7,6 +7,9 @@ var app = express();
 
 router.get('/', function (req, res) {
 
+	// console.log(req.headers.authorization);
+
+    
     Product.find(function (err, docs) {
         var productChunks = [];
         // var chunkSize = 3;
@@ -19,3 +22,4 @@ router.get('/', function (req, res) {
 });
 
 module.exports = router;
+

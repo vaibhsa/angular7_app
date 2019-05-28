@@ -31,13 +31,28 @@ export class ProductService {
 
   productGame() {
 
-    // if(window.location.reload()){
-    //     console.log("reloaded");
-    // }
-      return this.http.get(
-      // 'http://localhost:3000/api/product',
+    return this.http.get(
       'https://angular7-shopping-cart.herokuapp.com/api/product'
-      ).pipe(map(res => res.json()));
+      // 'http://localhost:3000/api/product'
+    ).pipe(map(res => res.json()));
+  }
+
+  addProduct(key: FormGroup) {
+
+    var token = localStorage.getItem('token');   
+    console.log(token);
+    var headers = new Headers();
+    headers.append('content-Type','application/json');
+    headers.append('Authorization','Bearer '+token);
+
+    return this.http.post(
+      // 'http://localhost:3000/api/productadd', 
+      'https://angular7-shopping-cart.herokuapp.com/api/product',
+    // return this.http.post('http://localhost:3000/api/login', 
+      key.value, {
+        headers:headers
+    }).pipe(map(res => res.json()))
+
   }
 
 }

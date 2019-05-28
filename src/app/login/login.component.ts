@@ -72,28 +72,32 @@ export class LoginComponent implements OnInit {
     console.log(this.loginForm.value);
     this.authenticationService.login(this.loginForm)
     .subscribe(
-        data => {
-          console.log(data);
-          this.spinner.hide();          
-          if(data.success == true){
-            localStorage.setItem('email', data.email);
-            localStorage.setItem('token', data.token);
-            this.router.navigate([this.returnUrl]);
-          }
-          else{
+      data => {
 
-            this.flash.show('Either Username or Password is Incorrect', { timeout: 3000,cssClass: 'alert-danger' });
-            this.router.navigate(['/login']);
-          }
-        },
-        error => {
-          this.spinner.hide();
-          console.log(error);
+        console.log(data);
+        this.spinner.hide();          
+        if(data.success == true){
+          
+          localStorage.setItem('email', data.email);
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('role', data.role);
+          this.router.navigate([this.returnUrl]);
         }
-    );    
+        else{
+          this.spinner.hide();
+          this.flash.show('Either Username or Password is Incorrect', { timeout: 3000,cssClass: 'alert-danger' });
+          this.router.navigate(['/login']);
+        }
+      },
+      error => {
+
+        this.spinner.hide();
+        console.log(error);
+      });    
 	}
 
   resetPassword(){
+
     if (!this.email.value) { 
       alert('Type in your email first'); 
     }
