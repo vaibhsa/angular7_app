@@ -69,7 +69,8 @@ router.post('/register1', upload,function (req, res, next) {
                     email: req.body.email,
                     username: req.body.username,
                     password: req.body.password,
-                    image_url: result.res
+                    image_url: result.res,
+                    role: 0
                 });
                 
                 user.save(function(err) {

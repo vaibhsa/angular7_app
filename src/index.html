@@ -18,13 +18,6 @@
         <link href="assets/vendors/easypiechart/jquery.easy-pie-chart.css" rel="stylesheet" media="screen">
        
         <link href="assets/styles.css" rel="stylesheet" media="screen">
-                     
-        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
-        <!--[if lt IE 9]>
-
-            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-
-        <![endif]-->
         
         <style type="text/css">
 
@@ -87,6 +80,20 @@
 
                 background-color: #08c;
             }
+            .selected-list:focus {
+                outline: none;
+            }
+            .c-btn:focus {
+                outline: none;
+            }
+            .selected-list .c-angle-down, .selected-list .c-angle-up{
+                right: 25px !important;
+            }    
+            .selected-list .c-btn {
+                width: 96% !important;
+                height: 50px !important;
+            }
+
         </style>
         
         <script src="assets/vendors/modernizr-2.6.2-respond-1.1.0.min.js">
@@ -107,6 +114,5 @@
         <script src="assets/bootstrap/js/popper.min.js"></script>
 
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>      
-
     </body>
 </html>

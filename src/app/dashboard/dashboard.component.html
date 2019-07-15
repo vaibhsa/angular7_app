@@ -14,42 +14,31 @@
         <!-- block -->
         <div class="block">
             <div class="navbar navbar-inner block-header">
-                <div class="muted pull-left">Users</div>
+                <div class="muted pull-left">Products</div>
                 <div class="pull-right"><span class="badge badge-info">1,234</span>
 
                 </div>
             </div>
             <div class="block-content collapse in">
-                <table class="table table-striped">
-                    <thead>
+                <p-table [value]="products">
+                    <ng-template pTemplate="header">
                         <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>TypeProduct</th>
                         </tr>
-                    </thead>
-                    <tbody>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product>
                         <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td>{{product.title}}</td>
+                            <td>{{product.description}}</td>
+                            <td>{{product.price}}</td>
+                            <td>{{product.typeProduct}}</td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Vincent</td>
-                            <td>Gabriel</td>
-                            <td>@gabrielva</td>
-                        </tr>
-                    </tbody>
-                </table>
+                    </ng-template>
+                </p-table>
+
             </div>
         </div>
         <!-- /block -->

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CartService } from '../services/cart.services';
 import { ProductService } from '../services/product.services';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-home',
@@ -16,8 +18,10 @@ export class HomeComponent implements OnInit {
   productCart: Array<{_id: number, title: string, description: string, price: number, imagePath: string, qty: number}> = [];
 
   constructor(
+
     private productService: ProductService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private messageService: MessageService    
   ) { }
   
   ngOnInit() {
@@ -34,7 +38,10 @@ export class HomeComponent implements OnInit {
     );
 
   }
-
+  filter(value:any){
+    // this.selectedItems =item;
+    console.log(value);
+  }
 
   cart(product: any) {
 

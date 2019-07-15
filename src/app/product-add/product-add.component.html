@@ -30,21 +30,21 @@
 
         <div class="form-label-group">
 
-			<label for="inputPrice">
-				Price
-			</label>
+    			<label for="inputPrice">
+    				Price
+    			</label>
 
-			<input type="text" id="inputPrice" class="form-control" placeholder="Price" [formControl]="price">
+    			<input type="text" id="inputPrice" class="form-control" placeholder="Price" [formControl]="price">
 
-			<div [hidden]="price.valid || price.untouched">
+    			<div [hidden]="price.valid || price.untouched">
 
-				<div [hidden]="!price.hasError('required')" class="alert alert-danger">            price is required
-				</div>
+    				<div [hidden]="!price.hasError('required')" class="alert alert-danger">            price is required
+    				</div>
 
-				<div [hidden]="!price.hasError('pattern')" class="alert alert-danger">             price should be numeric
-				</div>
+    				<div [hidden]="!price.hasError('pattern')" class="alert alert-danger">             price should be numeric
+    				</div>
 
-			</div>
+			     </div>
 
         </div>
 
@@ -62,11 +62,38 @@
             </div>
 
           </div>
-
         </div>
 
-
-        <button [disabled]="!productForm.valid" class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">
+        <div class="form-label-group">
+          <label for="type">Type of Product</label>
+          <angular2-multiselect id="type" [data]="itemList" 
+              [(ngModel)]="selectedItems" 
+              [settings]="settings" 
+              (onSelect)="onItemSelect($event)"
+              (onDeSelect)="OnItemDeSelect($event)" 
+              (onSelectAll)="onSelectAll($event)" 
+              (onDeSelectAll)="onDeSelectAll($event)" 
+              [formControl]="typeProduct">
+          </angular2-multiselect>
+          <div [hidden]="typeProduct.valid || typeProduct.untouched">  
+            <div [hidden]="!typeProduct.hasError('required')" class="alert alert-danger">                  Please select type of product
+            </div>
+          </div>
+        </div>
+        <div class="form-label-group">
+          <label for="tag">Tags</label>
+          <p-multiSelect 
+            [options]="tags" 
+            [(ngModel)]="selectedTag" 
+            [formControl]="typeTag"
+            (onChange) = "onItemSelectMulti($event)">
+          </p-multiSelect>  
+          <div [hidden]="typeTag.valid || typeTag.untouched">  
+            <div [hidden]="!typeTag.hasError('required')" class="alert alert-danger">                  Please select a tag for product
+            </div>
+          </div>
+        </div>
+        <button [disabled]="!productForm.valid" class="btn btn-lg btn-primary btn-block text-uppercase btn-width" type="submit">
         	Add Product
         </button>
       </form>

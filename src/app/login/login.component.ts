@@ -99,6 +99,7 @@ export class LoginComponent implements OnInit {
   resetPassword(){
 
     if (!this.email.value) { 
+      
       alert('Type in your email first'); 
     }
     this.authenticationService.resetPasswordInit(this.email.value) 

@@ -16,6 +16,19 @@
 	padding: 0 15px;
 	margin-top: 15px;
 }
+.products-grid{
+	float:left;	
+	width:100%;
+	padding: 0 15px;
+	margin-top: 15px;
+}
+
+.pInputText-css {
+
+    height: 25px;
+    left: 40%;
+    position: absolute;
+}
 
 @media screen and (max-width: 767px) {
   .products{
@@ -24,4 +37,10 @@
 	width:90%;
 	padding: 0 15px;
    }
+   .pInputText-css {
+
+	    height: 25px;
+	    left: 30%;
+	    position: absolute;
+	}
 }

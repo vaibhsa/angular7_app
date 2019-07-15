@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms'; // <-- NgModel lives here
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { HomeComponent } from './home/home.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -19,6 +20,14 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { HttpModule } from '@angular/http';
 
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+
+import {MultiSelectModule} from 'primeng/primeng';
+import {DataViewModule} from 'primeng/dataview';
+import {ToastModule} from 'primeng/toast';
+import {TableModule} from 'primeng/table';
+import { MessageService } from 'primeng/api';
+
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -26,6 +35,9 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuth } from "@angular/fire/auth"; 
 import { environment } from '../environments/environment';
 import { ProductAddComponent } from './product-add/product-add.component';
+
+
+
 
 @NgModule({
 
@@ -45,16 +57,23 @@ import { ProductAddComponent } from './product-add/product-add.component';
     ReactiveFormsModule,
     FormsModule,
     HttpModule,
+    BrowserAnimationsModule,
+    AngularMultiSelectModule,
     FlashMessagesModule.forRoot(),
     NgbModule.forRoot(),
     NgxSpinnerModule,
     AngularFireAuthModule,
+    MultiSelectModule,
+    DataViewModule,
+    ToastModule,
+    TableModule,
     AngularFireModule.initializeApp(environment.firebase)  
   ],
   providers: [
     AuthService,
     CartService,
-    ProductService
+    ProductService,
+    MessageService
   ],
   bootstrap: [AppComponent]
 })

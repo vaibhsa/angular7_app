@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+.ui-multiselect {
+  display: block !important;
+  position: initial !important;
+  height: 50px;
+  width: 96% !important;
+  /*cursor: pointer;*/
+}
+
+
+.ui-multiselect .ui-multiselect-trigger {
+    
+  height: 35% !important;
+  position: absolute;
+  right: 50px !important;
+  top: 41px !important;
+}
+
+body .ui-corner-all {
+ border-radius: 50px !important;
+}

@@ -9,25 +9,31 @@
           
 
           <div [hidden]="email.valid || email.untouched">
-            <div [hidden]="!email.hasError('required')" class="alert alert-danger">                Email is required
+            <div [hidden]="!email.hasError('required')" class="alert alert-danger">                         Email is required
             </div>
-            <div [hidden]="!email.hasError('pattern')" class="alert alert-danger">            Email format should be 
+            <div [hidden]="!email.hasError('pattern')" class="alert alert-danger">                          Email format should be 
               <small><b>vai@abc.com</b></small>
             </div>
           </div>
         </div>
 
         <div class="form-label-group">
-          <label for="inputUName">Username</label>
-          <input type="email" id="inputUName" class="form-control" placeholder="Username" 
-          [formControl]="username" >
           
+          <label for="inputUName"> Username </label>
+          
+          <input type="email" id="inputUName" class="form-control" placeholder="Username" 
+          [formControl]="username">
+
           <div [hidden]="username.valid || username.untouched">
-            <div [hidden]="!username.hasError('required')" class="alert alert-danger">       username is required
+          
+            <div [hidden]="!username.hasError('required')" class="alert alert-danger">                      username is required
             </div>            
-            <div [hidden]="!username.hasError('minlength')" class="alert alert-danger">       username should be greater than 5                
+          
+            <div [hidden]="!username.hasError('minlength')" class="alert alert-danger">                    username should be greater than 5                
             </div>
+          
           </div>
+
         </div>
 
         <div class="form-label-group">

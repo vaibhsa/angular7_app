@@ -8,11 +8,14 @@ app.set('superSecret', 'config.secret');
 
 router.post('/', function (req, res) {
 
+	console.log(req.body.typeProduct);
 	var product = new Product({
         title: req.body.title,
         description: req.body.description,
         price: req.body.price,
-        imagePath: req.body.imagePath
+        imagePath: req.body.imagePath,
+        typeProduct: req.body.typeProduct,
+        tags: req.body.typeTag
     });
 
 	
@@ -74,8 +77,6 @@ router.post('/', function (req, res) {
 			});
 		}
 	}	
-
-    
 });
 
 module.exports = router;
