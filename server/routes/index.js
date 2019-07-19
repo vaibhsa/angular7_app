@@ -194,7 +194,7 @@ router.post('/login', function(req, res) {
 
 router.post('/logout', function(req, res) {
     
-    console.log(req.body.email);
+    console.log(req.body);
     Loggedinuser.remove({ email: req.body.email }, function (err) {
         if (err) return handleError(err);
         // removed!

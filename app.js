@@ -3,7 +3,7 @@ var jwt = require('express-jwt');
 var cors = require('cors');
 var app = express();
 var logger = require('morgan');
-// var bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 // var quotes = require('./server/quotes.json');
 var mongoose = require('mongoose');
 var path = require('path');
@@ -32,8 +32,8 @@ var jwtCheck= jwt({
 app.use(express.static(path.join(__dirname+'/dist/angular7-node')));
 
 app.use(logger('dev'));
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 // app.use('/api',jwtCheck);
