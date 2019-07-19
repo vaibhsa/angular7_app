@@ -46,8 +46,8 @@ export class ProductService {
     headers.append('Authorization','Bearer '+token);
 
     return this.http.post(
-      'http://localhost:3000/api/productadd', 
-      // 'https://angular7-shopping-cart.herokuapp.com/api/productadd',
+      // 'http://localhost:3000/api/productadd', 
+      'https://angular7-shopping-cart.herokuapp.com/api/productadd',
     // return this.http.post('http://localhost:3000/api/login', 
       key.value, {
         headers:headers

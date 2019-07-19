@@ -183,4 +183,31 @@ export class AuthService {
       }).pipe(map(res => res.json()));  
   }
 
+  getAllUsers(){
+
+    let headers = new Headers();
+    // headers.append('Content-Type', 'multipart/form-data');
+    headers.append('x-token', '5');
+
+    return this.http.get(
+      // 'http://localhost:3000/api/all-users',
+      'https://angular7-shopping-cart.herokuapp.com/api/all-users',
+      {
+        headers: headers
+      }).pipe(map(res => res.json()));  
+  }
+
+  getAllLoggedIn(){
+
+    let headers = new Headers();
+    // headers.append('Content-Type', 'multipart/form-data');
+    headers.append('x-token', '5');
+
+    return this.http.get(
+      // 'http://localhost:3000/api/all-loggedin',
+      'https://angular7-shopping-cart.herokuapp.com/api/all-loggedin',
+      {
+        headers: headers
+      }).pipe(map(res => res.json()));  
+  }
 }

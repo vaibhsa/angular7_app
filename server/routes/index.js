@@ -48,7 +48,7 @@ router.post('/register1', upload,function (req, res, next) {
             
             var value ;
             console.log("hello-1");    
-             return User.findOne({email: req.body.email}).then(obj => {
+            return User.findOne({email: req.body.email}).then(obj => {
                 return {res: result, obj: obj};
             }).catch(e => {
                 console.log(e);
@@ -244,6 +244,39 @@ router.post('/reset-password', function(req,res){
                 success: 'password updated!'
             });     
         });
+});
+
+router.get('/all-users', function(req, res) {
+
+    if(req.headers['x-token']){
+        User.find(function (err, docs) {
+            var userChunks = [];
+            
+            // var chunkSize = 3;
+            // for (var i = 0; i < docs.length; i += chunkSize) {
+            //     productChunks.push(docs.slice(i, i + chunkSize));
+            // }
+            userChunks = docs;
+            res.json({ success: true, users: userChunks });
+        });
+    }else{
+
+        return res.json({"Status":"failure","message":"You can't run api from browser directly"});
+    }
+});
+
+router.get('/all-loggedin', function(req, res) {
+
+    if(req.headers['x-token']){
+        Loggedinuser.find(function (err, docs) {
+            var userChunks = [];
+            userChunks = docs;
+            res.json({ success: true, users: userChunks });
+        });
+    }else{
+
+        return res.json({"Status":"failure","message":"You can't run api from browser directly"});
+    }
 });
 
 module.exports = router;

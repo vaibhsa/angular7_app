@@ -26,7 +26,10 @@ import {MultiSelectModule} from 'primeng/primeng';
 import {DataViewModule} from 'primeng/dataview';
 import {ToastModule} from 'primeng/toast';
 import {TableModule} from 'primeng/table';
+import {DialogModule} from 'primeng/dialog';
 import { MessageService } from 'primeng/api';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { UserManagementComponent } from './user-management/user-management.component';
@@ -35,6 +38,7 @@ import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuth } from "@angular/fire/auth"; 
 import { environment } from '../environments/environment';
 import { ProductAddComponent } from './product-add/product-add.component';
+import { TableDetailComponent } from './table-detail/table-detail.component';
 
 
 
@@ -49,8 +53,10 @@ import { ProductAddComponent } from './product-add/product-add.component';
     RegistrationComponent,
     ShoppingCartComponent,
     UserManagementComponent,
-    ProductAddComponent
+    ProductAddComponent,
+    TableDetailComponent
   ],
+  
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -67,14 +73,17 @@ import { ProductAddComponent } from './product-add/product-add.component';
     DataViewModule,
     ToastModule,
     TableModule,
+    DialogModule,
+    AngularFontAwesomeModule,
     AngularFireModule.initializeApp(environment.firebase)  
   ],
+
   providers: [
     AuthService,
     CartService,
     ProductService,
     MessageService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [ AppComponent ]
 })
 export class AppModule { }

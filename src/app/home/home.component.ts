@@ -38,10 +38,10 @@ export class HomeComponent implements OnInit {
     );
 
   }
-  filter(value:any){
-    // this.selectedItems =item;
-    console.log(value);
-  }
+  // filter(value:any){
+  //   // this.selectedItems =item;
+  //   console.log(value);
+  // }
 
   cart(product: any) {
 

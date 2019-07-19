@@ -115,17 +115,13 @@
         <div class="span3" id="sidebar">
             <ul class="nav nav-list bs-docs-sidenav nav-collapse collapse">
 
-                <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
-                    <a routerLink="/"><i class="icon-chevron-right"></i>Dashboard</a>
-                </li>
-                <li [routerLinkActive]="['active']">
-                    <a routerLink="/home"><i class="icon-chevron-right"></i> Product Game</a>
-                </li>
-
                 <div *ngIf="auth.role(); then thenTemplateName else elseTemplateName">
                     Here is never showing
                 </div>
                 <ng-template #thenTemplateName>
+                    <li [routerLinkActive]="['active']">
+                        <a routerLink="/dashboard"><i class="icon-chevron-right"></i>Dashboard</a>
+                    </li>
                     <li [routerLinkActive]="['active']">
                         <a routerLink="/productAdd">
                             <i class="icon-chevron-right"></i> 
@@ -133,8 +129,11 @@
                         </a>
                     </li>
                 </ng-template>
-                <ng-template #elseTemplateName>    
 
+                <ng-template #elseTemplateName>    
+                    <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }">
+                        <a routerLink="/"><i class="icon-chevron-right"></i> Product Game</a>
+                    </li>
                     <li>
                         <a routerLink="/home">
                             <i class="icon-chevron-right"></i>
