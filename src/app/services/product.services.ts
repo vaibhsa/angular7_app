@@ -51,9 +51,36 @@ export class ProductService {
       key.value, {
         headers:headers
     }).pipe(map(res => res.json()))
-
   }
 
+  deleteProduct(data:any) {
+
+    console.log(data);
+    let headers = new Headers();
+    // headers.append('Content-Type', 'multipart/form-data');
+    headers.append('x-token', '5');
+    return this.http.delete(
+      // 'http://localhost:3000/api/productadd/delete-product/'+data._id,
+      'https://angular7-shopping-cart.herokuapp.com/api/productadd/delete-product/'+data._id,
+      {
+        headers: headers
+    }).pipe(map(res => res.json()));   
+  }
+
+  updateProduct(data:any) {
+
+    // console.log(data);
+    let headers = new Headers();
+    // headers.append('Content-Type', 'multipart/form-data');
+    headers.append('x-token', '5');
+    return this.http.put(
+      // 'http://localhost:3000/api/productadd/update-product',
+      'https://angular7-shopping-cart.herokuapp.com/api/productadd/update-product',
+      data,
+      {
+        headers: headers
+    }).pipe(map(res => res.json()));   
+  }
 }
 
 

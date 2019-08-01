@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
   { path: 'userMgmt', component: UserManagementComponent },
-  { path: 'shoppingCart', component: ShoppingCartComponent, canActivate: [AuthGuard] },
+  { path: 'shoppingCart', component: ShoppingCartComponent, canActivate:[AuthGuard]},
   { path: 'productAdd', component: ProductAddComponent, canActivate: [AuthGuardAdmin] },
   { path: 'tableDetail', component: TableDetailComponent, canActivate: [AuthGuardAdmin] }
 ];

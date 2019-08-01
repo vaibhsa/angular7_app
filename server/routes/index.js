@@ -279,4 +279,65 @@ router.get('/all-loggedin', function(req, res) {
     }
 });
 
+router.delete('/delete-loggedin/:id', function(req, res) {
+    console.log(req.params.id);
+    if(req.headers['x-token']){
+
+        Loggedinuser.findByIdAndRemove(req.params.id, (err, data) => {
+            // As always, handle any potential errors:
+            if (err){
+                return res.json({"Status":"failure","Error": err});
+            }else{
+                console.log(data);
+                return res.json({"Status":"Success","message":data.email+"deleted Successfully"});
+            }
+        });
+    }else{
+
+        return res.json({"Status":"failure","message":"You can't run api from browser directly"});
+    }
+});
+
+router.delete('/delete-user/:id', function(req, res) {
+    console.log(req.params.id);
+    if(req.headers['x-token']){
+        
+        User.findByIdAndRemove(req.params.id, (err, data) => {
+            // As always, handle any potential errors:
+            if (err){
+                return res.json({"Status":"failure","Error": err});
+            }else{
+                console.log(data);
+                return res.json({"Status":"Success", "message": data.email+" deleted Successfully"});
+            }
+        });
+    }else{
+
+        return res.json({"Status":"failure","message":"You can't run api from browser directly"});
+    }
+});
+
+router.put('/update-loggedin', function(req, res) {
+    // console.log(req.params.id);
+    console.log(req.body);
+    if(req.headers['x-token']){
+        return res.json({"Status":"Success","message":"Testing update loggedin api"});
+    }else{
+
+        return res.json({"Status":"failure","message":"You can't run api from browser directly"});
+    }
+});
+
+router.put('/update-user', function(req, res) {
+    console.log(req.body);
+    if(req.headers['x-token']){
+        
+        return res.json({"Status":"Success","message":"Testing update user api"});
+    }else{
+
+        return res.json({"Status":"failure","message":"You can't run api from browser directly"});
+    }
+});
+
+
 module.exports = router;

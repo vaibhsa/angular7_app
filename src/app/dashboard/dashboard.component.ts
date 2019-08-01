@@ -74,6 +74,7 @@ export class DashboardComponent implements OnInit {
 	  	}
 	  );
     }
+    
     navigateTableDetail( value: any ){
     	console.log(value);
     	this.router.navigate(['/tableDetail', {id: value}]);

@@ -27,6 +27,7 @@ import {DataViewModule} from 'primeng/dataview';
 import {ToastModule} from 'primeng/toast';
 import {TableModule} from 'primeng/table';
 import {DialogModule} from 'primeng/dialog';
+import {DropdownModule} from 'primeng/dropdown';
 import { MessageService } from 'primeng/api';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
@@ -74,6 +75,7 @@ import { TableDetailComponent } from './table-detail/table-detail.component';
     ToastModule,
     TableModule,
     DialogModule,
+    DropdownModule,
     AngularFontAwesomeModule,
     AngularFireModule.initializeApp(environment.firebase)  
   ],

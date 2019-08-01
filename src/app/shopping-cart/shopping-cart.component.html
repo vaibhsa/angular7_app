@@ -16,12 +16,12 @@
                             <span class="label label-success">${{product.price}}</span>
                         </div>
                     </div>    
-                    <div ngbDropdown class="btn-group" style="float:right; width:20%; ">
+                    <div ngbDropdown class="btn-group" style="float:right; width:20%;">
                         <button type="button" class="btn btn-primary btn-xs dropdown-toggle" ngbDropdownToggle data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
+                                aria-haspopup="true" aria-expanded="false" (click)="menuShow()">
                             Action <span class="caret"></span>
                         </button>
-                        <ul ngbDropdownMenu class="dropdown-menu">
+                        <ul ngbDropdownMenu class="dropdown-menu" *ngIf="showMenu">
                             <li><a (click)="reduceByOne(product)">Reduce by 1</a></li>
                             <li><a (click)="removeAll(product)">Remove All</a></li>
                         </ul>

@@ -95,7 +95,7 @@ export class AuthService {
       
         console.log(data);
 
-        if(data.message =='success'){
+        if(data.message == 'success'){
 
           localStorage.removeItem('email');
           localStorage.removeItem('token');
@@ -209,5 +209,67 @@ export class AuthService {
       {
         headers: headers
       }).pipe(map(res => res.json()));  
+  }
+
+  deleteLoggedIn(data:any) {
+
+    console.log(data);
+    let headers = new Headers();
+    // headers.append('Content-Type', 'multipart/form-data');
+    headers.append('x-token', '5');
+
+    return this.http.delete(
+      // 'http://localhost:3000/api/delete-loggedin/'+data._id,
+      'https://angular7-shopping-cart.herokuapp.com/api/delete-loggedin/'+data._id,
+      {
+        headers: headers
+    }).pipe(map(res => res.json()));   
+  }
+
+  deleteUser(data:any) {
+
+    console.log(data);
+    let headers = new Headers();
+    // headers.append('Content-Type', 'multipart/form-data');
+    headers.append('x-token', '5');
+
+    return this.http.delete(
+      // 'http://localhost:3000/api/delete-user/'+data._id,
+      'https://angular7-shopping-cart.herokuapp.com/api/delete-user/'+data._id,
+      {
+        headers: headers
+    }).pipe(map(res => res.json()));   
+  }
+
+  updateLoggedIn(data:any) {
+
+    console.log(data);
+    let headers = new Headers();
+    // headers.append('Content-Type', 'multipart/form-data');
+    headers.append('x-token', '5');
+
+    return this.http.put(
+      // 'http://localhost:3000/api/update-loggedin',
+      'https://angular7-shopping-cart.herokuapp.com/api/update-loggedin',
+      data,
+      {
+        headers: headers
+    }).pipe(map(res => res.json()));   
+  }
+
+  updateUser(data:any) {
+
+    console.log(data);
+    let headers = new Headers();
+    // headers.append('Content-Type', 'multipart/form-data');
+    headers.append('x-token', '5');
+
+    return this.http.put(
+      // 'http://localhost:3000/api/update-user',
+      'https://angular7-shopping-cart.herokuapp.com/api/update-user',
+      data,
+      {
+        headers: headers
+    }).pipe(map(res => res.json()));   
   }
 }

@@ -81,7 +81,11 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('email', data.email);
           localStorage.setItem('token', data.token);
           localStorage.setItem('role', data.role);
-          this.router.navigate([this.returnUrl]);
+          if(data.role == 1){
+            this.router.navigate(['/dashboard']);
+          }else{
+            this.router.navigate([this.returnUrl]);
+          }
         }
         else{
           this.spinner.hide();

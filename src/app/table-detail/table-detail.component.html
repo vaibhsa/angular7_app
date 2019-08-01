@@ -1,24 +1,23 @@
-
 <div [ngSwitch]="tableName">
     <ng-container *ngSwitchCase="'product'">
     
-        <p-table #dt [columns]="colsProduct" [value]="tableData" selectionMode="single" [(selection)]="selectedCar" (onRowSelect) = "onRowSelect($event)" [paginator]="true" [rows]="5" [globalFilterFields]="['title', 'description', 'price', 'typeProduct']">
+        <p-table #dt [columns]="cols" [value]="tableData" selectionMode="single" [(selection)]="selectedCar" (onRowSelect) = "onRowSelect($event, 'product')" [paginator]="true" [rows]="5" [globalFilterFields]="['title', 'description', 'price', 'typeProduct']">
             <ng-template pTemplate="caption">
                 List of Products
                  <div style="text-align: right; margin-top: 10px;">        
                     <i style="margin:4px 4px 0 0">
                         <fa name="search"></fa>
                     </i>
-                    <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto;height: 35px;margin-top:5px">
+                    <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto;height: 35px; margin-top: 5px">
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
-                    <tr>
-                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
-                            {{col.header}}
-                            <p-sortIcon [field]="col.field"></p-sortIcon>
-                        </th>
-                    </tr>
+                <tr>
+                    <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr [pSelectableRow]="rowData">
@@ -36,14 +35,14 @@
             </ng-template>    
         </p-table>
 
-        <p-dialog header="Product Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
-            <div class="ui-g ui-fluid" *ngIf="product">
+        <p-dialog header="Product Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500" (onHide)="cancelPDialog('product')">
+            <div class="ui-g ui-fluid" *ngIf="dataDialog">
                 <div class="ui-g-12">
                     <div class="ui-g-4">
                         <label for="title">Title</label>
                     </div>
                     <div class="ui-g-8">
-                        <input pInputText id="title" [(ngModel)]="product.title" />
+                        <input pInputText id="title" [(ngModel)]="dataDialog.title" />
                     </div>
                 </div>
                 <div class="ui-g-12">
@@ -51,7 +50,7 @@
                         <label for="description">Description</label>
                     </div>
                     <div class="ui-g-8">
-                        <input pInputText id="description" [(ngModel)]="product.description" />
+                        <input pInputText id="description" [(ngModel)]="dataDialog.description" />
                     </div>
                 </div>
                 <div class="ui-g-12">
@@ -59,7 +58,7 @@
                         <label for="price">Price</label>
                     </div>
                     <div class="ui-g-8">
-                        <input pInputText id="price" [(ngModel)]="product.price" />
+                        <input pInputText id="price" [(ngModel)]="dataDialog.price" />
                     </div>
                 </div>
                 <div class="ui-g-12">
@@ -67,29 +66,28 @@
                         <label for="typeProduct">Type Product</label>
                     </div>
                     <div class="ui-g-8">
-                        <input pInputText id="typeProduct" [(ngModel)]="product.typeProduct" />
+                       <p-dropdown [options]="itemList" [(ngModel)]="dataDialog.typeProduct"></p-dropdown>
                     </div>
                 </div>
             </div>
             <p-footer>
                 <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                    <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete">
+                    <button type="button" *ngIf="deleteBtn" pButton icon="fa fa-close" (click)="delete('product')" label="Delete">
                         Delete <fa name="close" style="color:red;"></fa>  
                     </button>
-                    <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save">
+                    <button type="button" pButton icon="fa fa-check" (click)="save('product')" label="Save">
                         Save <fa name="check" style="color:green;"></fa>
                     </button>
                 </div>
             </p-footer>
-        </p-dialog>
-    
+        </p-dialog>   
     </ng-container>
 
     <ng-container *ngSwitchCase="'users'">
-        <p-table #dt [columns]="cols" [value]="tableData" selectionMode="single" [(selection)]="selectedCar" (onRowSelect) = "onRowSelect($event)" [paginator]="true" [rows]="5" [globalFilterFields]="['username', 'email', 'role']">
+        <p-table #dt [columns]="cols" [value]="tableData" selectionMode="single" [(selection)]="selectedCar" (onRowSelect) = "onRowSelect($event,'user')" [paginator]="true" [rows]="5" [globalFilterFields]="['username', 'email', 'role']">
             <ng-template pTemplate="caption">
-                List of Products
-                 <div style="text-align: right; margin-top: 10px;">        
+                List of Users
+                <div style="text-align: right; margin-top: 10px;">        
                     <i style="margin:4px 4px 0 0">
                         <fa name="search"></fa>
                     </i>
@@ -97,12 +95,12 @@
                 </div>
             </ng-template>
             <ng-template pTemplate="header" let-columns>
-                <tr>
-                    <th>User Name</th>
-                    <th>email</th>
-                    <th>Role</th>
-                    <th>Image</th>
-                </tr>
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-columns="columns">
                 <tr [pSelectableRow]="rowData">
@@ -130,14 +128,14 @@
             </ng-template>    
         </p-table>
 
-        <p-dialog header="Product Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
-            <div class="ui-g ui-fluid" *ngIf="tableData">
+        <p-dialog header="Users Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500" (onHide)="cancelPDialog('user')">
+            <div class="ui-g ui-fluid" *ngIf="dataDialog">
                 <div class="ui-g-12">
                     <div class="ui-g-4">
                         <label for="title">Username</label>
                     </div>
                     <div class="ui-g-8">
-                        <input pInputText id="title" value="{{tableData.username}}" [(ngModel)]="tableData.username" />
+                        <input pInputText id="title" [(ngModel)]="dataDialog.username" />
                     </div>
                 </div>
                 <div class="ui-g-12">
@@ -145,7 +143,7 @@
                         <label for="description">Email</label>
                     </div>
                     <div class="ui-g-8">
-                        <input pInputText id="description" [(ngModel)]="tableData.email" />
+                        <input pInputText id="description" [(ngModel)]="dataDialog.email" />
                     </div>
                 </div>
                 <div class="ui-g-12">
@@ -153,24 +151,24 @@
                         <label for="price">Role</label>
                     </div>
                     <div class="ui-g-8">
-                        <input pInputText id="price" [(ngModel)]="tableData.Role" />
+                        <input pInputText id="price" [(ngModel)]="dataDialog.role" />
                     </div>
                 </div>
                 <div class="ui-g-12">
                     <div class="ui-g-4">
-                        <label for="typeProduct">Type Product</label>
+                        <label for="typeProduct">Image</label>
                     </div>
                     <div class="ui-g-8">
-                        <input pInputText id="typeProduct" [(ngModel)]="tableData.typeProduct" />
+                        <input pInputText id="typeProduct" [(ngModel)]="dataDialog.image_url" />
                     </div>
                 </div>
             </div>
             <p-footer>
                 <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                    <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete">
+                    <button type="button" *ngIf="deleteBtn" pButton icon="fa fa-close" (click)="delete('user')" label="Delete">
                         Delete <fa name="close" style="color:red;"></fa>  
                     </button>
-                    <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save">
+                    <button type="button" pButton icon="fa fa-check" (click)="save('user')" label="Save">
                         Save <fa name="check" style="color:green;"></fa>
                     </button>
                 </div>
@@ -178,9 +176,9 @@
         </p-dialog>    
     </ng-container>
     <ng-container *ngSwitchCase="'loggedin'">
-        <p-table #dt [columns]="cols" [value]="tableData" selectionMode="single" [(selection)]="selectedCar" (onRowSelect) = "onRowSelect($event)" [paginator]="true" [rows]="5" [globalFilterFields]="['username', 'email', 'role']">
+        <p-table #dt [columns]="cols" [value]="tableData" selectionMode="single" [(selection)]="selectedCar" (onRowSelect) = "onRowSelect($event, 'loggedin')" [paginator]="true" [rows]="5" [globalFilterFields]="['username', 'email', 'role']">
             <ng-template pTemplate="caption">
-                List of Products
+                List of LoggedIn Users
                  <div style="text-align: right; margin-top: 10px;">        
                     <i style="margin:4px 4px 0 0">
                         <fa name="search"></fa>
@@ -211,47 +209,31 @@
             </ng-template>    
         </p-table>
 
-        <p-dialog header="Product Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
-            <div class="ui-g ui-fluid" *ngIf="tableData">
+        <p-dialog header="loggedin Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500" (onHide)="cancelPDialog('loggedin')">
+            <div class="ui-g ui-fluid" *ngIf="dataDialog">
                 <div class="ui-g-12">
                     <div class="ui-g-4">
-                        <label for="title">Title</label>
+                        <label for="title">Email</label>
                     </div>
                     <div class="ui-g-8">
-                        <input pInputText id="title" [(ngModel)]="tableData.title" />
+                        <input pInputText id="title" [(ngModel)]="dataDialog.email" />
                     </div>
                 </div>
                 <div class="ui-g-12">
                     <div class="ui-g-4">
-                        <label for="description">Description</label>
+                        <label for="description">Token</label>
                     </div>
                     <div class="ui-g-8">
-                        <input pInputText id="description" [(ngModel)]="tableData.description" />
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label for="price">Price</label>
-                    </div>
-                    <div class="ui-g-8">
-                        <input pInputText id="price" [(ngModel)]="tableData.price" />
-                    </div>
-                </div>
-                <div class="ui-g-12">
-                    <div class="ui-g-4">
-                        <label for="typeProduct">Type Product</label>
-                    </div>
-                    <div class="ui-g-8">
-                        <input pInputText id="typeProduct" [(ngModel)]="tableData.typeProduct" />
+                        <input pInputText id="description" [(ngModel)]="dataDialog.token" />
                     </div>
                 </div>
             </div>
             <p-footer>
                 <div class="ui-dialog-buttonpane ui-helper-clearfix">
-                    <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete">
+                    <button type="button" *ngIf="deleteBtn" pButton icon="fa fa-close" (click)="delete('loggedIn')" label="Delete">
                         Delete <fa name="close" style="color:red;"></fa>  
                     </button>
-                    <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save">
+                    <button type="button" pButton icon="fa fa-check" (click)="save('loggedIn')" label="Save">
                         Save <fa name="check" style="color:green;"></fa>
                     </button>
                 </div>

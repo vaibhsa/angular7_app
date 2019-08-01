@@ -1,89 +1,261 @@
-<p-table #dt [columns]="cols" [value]="tableData" selectionMode="single" [(selection)]="selectedCar" (onRowSelect) = "onRowSelect($event)" [paginator]="true" [rows]="5" [globalFilterFields]="['title', 'description', 'price', 'typeProduct']">
-    <ng-template pTemplate="caption">
-        List of Products
-         <div style="text-align: right; margin-top: 10px;">        
-            <i style="margin:4px 4px 0 0">
-            	<fa name="search"></fa>
-            </i>
-            <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto;height: 35px;margin-top:5px">
-        </div>
-    </ng-template>
-    <ng-template pTemplate="header" let-columns>
-    	<tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Type Product</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-rowData let-columns="columns">
-        <tr [pSelectableRow]="rowData">
-            <td>
-                {{rowData.title}}
-            </td>
-            <td>
-                {{rowData.description}}
-            </td>
-            <td>
-                {{rowData.price}}
-            </td>
-            <td>
-                {{rowData.typeProduct}}
-            </td>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="summary" let-rowData>
-        <div style="text-align:left">
-            <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add">
-            	Add <fa name="plus" style="color:blue;"></fa>
-            </button>
-        </div>
-    </ng-template>    
-</p-table>
 
-<p-dialog header="Product Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
-    <div class="ui-g ui-fluid" *ngIf="tableData">
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="title">Title</label>
+<div [ngSwitch]="tableName">
+    <ng-container *ngSwitchCase="'product'">
+    
+        <p-table #dt [columns]="cols" [value]="tableData" selectionMode="single" [(selection)]="selectedCar" (onRowSelect) = "onRowSelect($event)" [paginator]="true" [rows]="5" [globalFilterFields]="['title', 'description', 'price', 'typeProduct']">
+            <ng-template pTemplate="caption">
+                List of Products
+                 <div style="text-align: right; margin-top: 10px;">        
+                    <i style="margin:4px 4px 0 0">
+                        <fa name="search"></fa>
+                    </i>
+                    <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto;height: 35px; margin-top: 5px">
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                    <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary" let-rowData>
+                <div style="text-align:left">
+                    <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add">
+                        Add <fa name="plus" style="color:blue;"></fa>
+                    </button>
+                </div>
+            </ng-template>    
+        </p-table>
+
+        <p-dialog header="Product Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
+            <div class="ui-g ui-fluid" *ngIf="product">
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="title">Title</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText id="title" [(ngModel)]="product.title" />
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="description">Description</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText id="description" [(ngModel)]="product.description" />
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="price">Price</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText id="price" [(ngModel)]="product.price" />
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="typeProduct">Type Product</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText id="typeProduct" [(ngModel)]="product.typeProduct" />
+                    </div>
+                </div>
             </div>
-            <div class="ui-g-8">
-                <input pInputText id="title" [(ngModel)]="tableData.title" />
+            <p-footer>
+                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                    <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete">
+                        Delete <fa name="close" style="color:red;"></fa>  
+                    </button>
+                    <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save">
+                        Save <fa name="check" style="color:green;"></fa>
+                    </button>
+                </div>
+            </p-footer>
+        </p-dialog>
+    
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'users'">
+        <p-table #dt [columns]="cols" [value]="tableData" selectionMode="single" [(selection)]="selectedCar" (onRowSelect) = "onRowSelect($event)" [paginator]="true" [rows]="5" [globalFilterFields]="['username', 'email', 'role']">
+            <ng-template pTemplate="caption">
+                List of Products
+                 <div style="text-align: right; margin-top: 10px;">        
+                    <i style="margin:4px 4px 0 0">
+                        <fa name="search"></fa>
+                    </i>
+                    <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto;height: 35px;margin-top:5px">
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Image</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+
+                    <td>
+                        {{rowData.username}}
+                    </td>
+                    <td>
+                        {{rowData.email}}
+                    </td>
+                    <td>
+                        {{rowData.role}}
+                    </td>
+                    <td>
+                        <img src="{{ rowData.image_url }}" style="max-height: 75px; min-width: 150px;" class="img-responsive"/>
+                    </td>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary" let-rowData>
+                <div style="text-align:left">
+                    <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add">
+                        Add <fa name="plus" style="color:blue;"></fa>
+                    </button>
+                </div>
+            </ng-template>    
+        </p-table>
+
+        <p-dialog header="Product Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
+            <div class="ui-g ui-fluid" *ngIf="tableData">
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="title">Username</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText id="title" value="{{tableData.username}}" [(ngModel)]="tableData.username" />
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="description">Email</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText id="description" [(ngModel)]="tableData.email" />
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="price">Role</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText id="price" [(ngModel)]="tableData.Role" />
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="typeProduct">Type Product</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText id="typeProduct" [(ngModel)]="tableData.typeProduct" />
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="description">Description</label>
+            <p-footer>
+                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                    <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete">
+                        Delete <fa name="close" style="color:red;"></fa>  
+                    </button>
+                    <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save">
+                        Save <fa name="check" style="color:green;"></fa>
+                    </button>
+                </div>
+            </p-footer>
+        </p-dialog>    
+    </ng-container>
+    <ng-container *ngSwitchCase="'loggedin'">
+        <p-table #dt [columns]="cols" [value]="tableData" selectionMode="single" [(selection)]="selectedCar" (onRowSelect) = "onRowSelect($event)" [paginator]="true" [rows]="5" [globalFilterFields]="['username', 'email', 'role']">
+            <ng-template pTemplate="caption">
+                List of Products
+                 <div style="text-align: right; margin-top: 10px;">        
+                    <i style="margin:4px 4px 0 0">
+                        <fa name="search"></fa>
+                    </i>
+                    <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto;height: 35px;margin-top:5px">
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>Email</th>
+                    <th>Token</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+                <tr [pSelectableRow]="rowData">
+                    
+                        <td>{{rowData.email}}</td>
+                        <td>{{rowData.token}}</td>
+                    
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="summary" let-rowData>
+                <div style="text-align:left">
+                    <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()" label="Add">
+                        Add <fa name="plus" style="color:blue;"></fa>
+                    </button>
+                </div>
+            </ng-template>    
+        </p-table>
+
+        <p-dialog header="Product Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500">
+            <div class="ui-g ui-fluid" *ngIf="tableData">
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="title">Title</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText id="title" [(ngModel)]="tableData.title" />
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="description">Description</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText id="description" [(ngModel)]="tableData.description" />
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="price">Price</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText id="price" [(ngModel)]="tableData.price" />
+                    </div>
+                </div>
+                <div class="ui-g-12">
+                    <div class="ui-g-4">
+                        <label for="typeProduct">Type Product</label>
+                    </div>
+                    <div class="ui-g-8">
+                        <input pInputText id="typeProduct" [(ngModel)]="tableData.typeProduct" />
+                    </div>
+                </div>
             </div>
-            <div class="ui-g-8">
-                <input pInputText id="description" [(ngModel)]="tableData.description" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="price">Price</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText id="price" [(ngModel)]="tableData.price" />
-            </div>
-        </div>
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="typeProduct">Type Product</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText id="typeProduct" [(ngModel)]="tableData.typeProduct" />
-            </div>
-        </div>
-    </div>
-    <p-footer>
-        <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete">
-            	Delete <fa name="close" style="color:red;"></fa>  
-            </button>
-            <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save">
-            	Save <fa name="check" style="color:green;"></fa>
-            </button>
-        </div>
-    </p-footer>
-</p-dialog>
+            <p-footer>
+                <div class="ui-dialog-buttonpane ui-helper-clearfix">
+                    <button type="button" pButton icon="fa fa-close" (click)="delete()" label="Delete">
+                        Delete <fa name="close" style="color:red;"></fa>  
+                    </button>
+                    <button type="button" pButton icon="fa fa-check" (click)="save()" label="Save">
+                        Save <fa name="check" style="color:green;"></fa>
+                    </button>
+                </div>
+            </p-footer>
+        </p-dialog>
+    </ng-container>
+</div>

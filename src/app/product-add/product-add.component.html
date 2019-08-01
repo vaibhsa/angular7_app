@@ -38,13 +38,15 @@
 
     			<div [hidden]="price.valid || price.untouched">
 
-    				<div [hidden]="!price.hasError('required')" class="alert alert-danger">            price is required
+    				<div [hidden]="!price.hasError('required')" class="alert alert-danger"> 
+              price is required
     				</div>
 
-    				<div [hidden]="!price.hasError('pattern')" class="alert alert-danger">             price should be numeric
+    				<div [hidden]="!price.hasError('pattern')" class="alert alert-danger">             
+              price should be numeric
     				</div>
 
-			     </div>
+			    </div>
 
         </div>
 
@@ -58,7 +60,8 @@
           
           <div [hidden]="imagePath.valid || imagePath.untouched">
             
-            <div [hidden]="!imagePath.hasError('required')" class="alert alert-danger">               	image is required
+            <div [hidden]="!imagePath.hasError('required')" class="alert alert-danger">               	
+              image is required
             </div>
 
           </div>
@@ -76,12 +79,15 @@
               [formControl]="typeProduct">
           </angular2-multiselect>
           <div [hidden]="typeProduct.valid || typeProduct.untouched">  
-            <div [hidden]="!typeProduct.hasError('required')" class="alert alert-danger">                  Please select type of product
+            <div [hidden]="!typeProduct.hasError('required')" class="alert alert-danger">                  
+              Please select type of product
             </div>
           </div>
         </div>
         <div class="form-label-group">
-          <label for="tag">Tags</label>
+          <label for="tag">
+            Tags
+          </label>
           <p-multiSelect 
             [options]="tags" 
             [(ngModel)]="selectedTag" 
@@ -89,7 +95,8 @@
             (onChange) = "onItemSelectMulti($event)">
           </p-multiSelect>  
           <div [hidden]="typeTag.valid || typeTag.untouched">  
-            <div [hidden]="!typeTag.hasError('required')" class="alert alert-danger">                  Please select a tag for product
+            <div [hidden]="!typeTag.hasError('required')" class="alert alert-danger">                  
+              Please select a tag for product
             </div>
           </div>
         </div>

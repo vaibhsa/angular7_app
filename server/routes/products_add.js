@@ -79,6 +79,38 @@ router.post('/', function (req, res) {
 	}	
 });
 
+router.delete('/delete-product/:id', function(req, res) {
+    console.log(req.params.id);
+    if(req.headers['x-token']){
+		Product.findByIdAndRemove(req.params.id, (err, data) => {
+		    // As always, handle any potential errors:
+		    if (err){
+		    	return res.json({"Status":"failure","Error": err});
+		    }else{
+		    	console.log(data);
+		    	return res.json({"Status":"Success","message":data.title+"deleted Successfully"});
+			}
+		});
+    }else{
+
+        return res.json({"Status":"failure","message":"You can't run api from browser directly"});
+    }
+});
+
+router.put('/update-product', function(req, res) {
+
+	console.log(req.body);
+	console.log(req.headers);
+    
+    if(req.headers['x-token']){
+
+        return res.json({"Status":"Success","message":"Testing update product api"});
+    }else{
+
+        return res.json({"Status":"failure","message":"You can't run api from browser directly"});
+    }
+});
+
 module.exports = router;
 
 
